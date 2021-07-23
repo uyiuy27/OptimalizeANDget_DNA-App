@@ -4,10 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OptimalizeAnDgetDnaApplication {
+public class OptimalizeAndGetDnaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OptimalizeAnDgetDnaApplication.class, args);
+		SpringApplication.run(OptimalizeAndGetDnaApplication.class, args);
 	}
+
+
 
 }
