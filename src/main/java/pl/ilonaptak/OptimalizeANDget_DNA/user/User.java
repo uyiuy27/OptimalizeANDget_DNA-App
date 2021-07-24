@@ -1,6 +1,8 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.user;
 
-import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -8,9 +10,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
 
-
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = User.TABLE_NAME)
 public class User {
@@ -20,10 +23,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @NotNull
-    String login;
+    @NotEmpty
+    String userName;
 
-    @Email
+//    @Email
     @NotEmpty
     @Column(nullable = false, unique = true, length = 40)
     String email;
@@ -32,29 +35,32 @@ public class User {
     @Size(min = 6)
     String password;
 
-    @NotEmpty
-    String role;
-
     @Size(max = 120)
     String workplace;
 
     @Size(max = 50)
     String position;
 
-    @NotNull
     LocalDate firstLoginOn;
+    String role;
+
 
 //    @OneToMany
 //    List<Experiment> experiment;
 
-
+    public User(String login, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.userName = login;
+        this.password = password;
+    }
 
     @PrePersist
     public void prePersist() {
         firstLoginOn = LocalDate.now();
     }
 
-
+    UserDto getAsDTO() {
+        return new UserDto(this.id, this.userName, this.email, this.workplace, this.position);
+    }
 
 
 }
