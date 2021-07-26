@@ -6,6 +6,7 @@ import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,6 +26,10 @@ public class Experiment {
     @NotEmpty
     String name;
 
+    @NotEmpty
+    @Size(max = 500)
+    String description;
+
     @NotNull
     LocalDateTime createdOn;
 
@@ -34,7 +39,7 @@ public class Experiment {
 
     String realDuration;
 
-    String difficultyLevel;
+    String difficulty;
 
     @NotNull
     String visibility;
@@ -47,9 +52,6 @@ public class Experiment {
     public void prePersist() {
         createdOn = LocalDateTime.now();
     }
-
-
-
 
 
 }

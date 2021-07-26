@@ -18,22 +18,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/add")
-    public String add(Model model) {
-        model.addAttribute("user", new User());
-        return "/user/form";
 
-    }
-
-    @PostMapping("/add")
-    public String add(@Valid User user, BindingResult bindingResult) {
-        System.out.println("test");
-        if (bindingResult.hasErrors()) {
-            return "user/form";
-        }
-        userService.save(user);
-        return "redirect:/user/hinew";
-    }
 
     @GetMapping("/details/{id}")
     public String showUserDetails (@PathVariable int id, Model model) {
@@ -47,6 +32,36 @@ public class UserController {
     public String login() {
         return "hello";
     }
+
+    @GetMapping("/update/{id}")
+    public String updateUser(@PathVariable int id, Model model) {
+        model.addAttribute("user", userService.findUserDtoById(id));
+        return "user/update"; // nie ma jeszcze widoku
+    }
+
+    @PostMapping("/update/{id}")
+    @ResponseBody
+    public String updateUser(@PathVariable int id, User user) {
+        userService.update(user);
+        return "hello"; // tymczasowo tu wszyscy lecą
+    }
+
+    @RequestMapping("/confirm/{id}")
+    public String confirmDelete(@PathVariable int id, Model model) {
+        model.addAttribute("id", id);
+        // tutaj będzie formularz potwierdzający na email kod
+        return "/user/confirm"; // tu też dodać widok
+    }
+
+    @RequestMapping("/delete/{id}")
+    @ResponseBody
+    public String deleteUser(@PathVariable int id) {
+        userService.delete(id);
+        return "deleted";
+    }
+
+
+
 
 
 

@@ -3,6 +3,7 @@ package pl.ilonaptak.OptimalizeANDget_DNA.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,23 +21,28 @@ public class UserService {
         userRepository.save(user);
     }
 
-    List<User> findAll() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findById(Integer id) {
-        return userRepository.findById(id);
+    public User findById(Integer id) {
+        return userRepository.getById(id);
+    }
+
+    public UserEditDto findUserDtoById(Integer id) {
+        Optional<User> user = userRepository.findById(id);
+        return UserDtoConverter.convertUserToUserDto(user.orElse(null), new UserEditDto());
     }
 
     public User findByLogin(String login) {
         return userRepository.findByUserName(login);
     }
 
-    List<User> findAllByRole(String role) {
+    public List<User> findAllByRole(String role) {
         return userRepository.findAllByRole(role);
     }
 
-    void update(User user) {
+    public void update(User user) {
         userRepository.save(user);
     }
 
@@ -45,8 +51,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    void delete(Integer id) {
+    public void delete(Integer id) {
         userRepository.deleteById(id);
     }
+
 
 }
