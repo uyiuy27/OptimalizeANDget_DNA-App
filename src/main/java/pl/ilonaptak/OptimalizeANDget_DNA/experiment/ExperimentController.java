@@ -47,7 +47,7 @@ public class ExperimentController {
 
     @PostMapping("/update/{id}")
     @ResponseBody
-    public String updateUser(@PathVariable int id, @Valid Experiment experiment, BindingResult bindingResult) {
+    public String update(@PathVariable int id, @Valid Experiment experiment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
 //            model.addAttribute("experiment", experimentService.findById(id)); // sprawdzić czy to się przyda
             return "experiment/form";
@@ -59,7 +59,7 @@ public class ExperimentController {
 
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public String deleteUser(@PathVariable int id) {
+    public String delete(@PathVariable int id) {
         experimentService.delete(id);
         return "deleted";
     }

@@ -15,7 +15,7 @@ public class ExperimentService {
         return experimentRepository.findAll();
     }
 
-    Experiment findById(Integer id) {
+    public Experiment findById(Integer id) {
         return experimentRepository.getById(id);
     }
 
@@ -24,6 +24,7 @@ public class ExperimentService {
     }
 
     void save(Experiment experiment) {
+        experiment.setDone(false);
         experimentRepository.save(experiment);
     }
 

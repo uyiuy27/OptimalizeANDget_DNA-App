@@ -18,7 +18,7 @@ Pola oznaczone * są wymagane <br>
 <%--    <form:errors path="*"/>--%>
     <form:hidden path="id"/>
 <%--    <form:hidden path="currentUserId"/>--%>
-    Nazwa: <form:input path="name"/><br>
+    Nazwa*: <form:input path="name"/><br>
     <form:errors path="name"/><br>
     Opis*: <form:input path="description"/><br>
     <form:errors path="description"/><br>
@@ -30,8 +30,8 @@ Pola oznaczone * są wymagane <br>
     <form:errors path="difficulty"/><br>
     Planowany czas: <form:input path="plannedDuration"/><br>
     <form:errors path="plannedDuration"/><br>
-    Widoczność: <br>
-    Publiczna: <form:radiobutton path="visibility" value="public"/>
+    Widoczność*: <br>
+    Publiczna: <form:radiobutton path="visibility" value="public"/> <br>
     Prywatna: <form:radiobutton path="visibility" value="private"/>
     <input type="submit">
 </form:form>

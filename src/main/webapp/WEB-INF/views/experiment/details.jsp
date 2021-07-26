@@ -29,6 +29,15 @@
     <h5><b>Dodano:</b></h5>
     <h6>${experiment.createdOn} ${experiment.user.username}</h6>
 
+    <button><a href="/accessory/all/${experiment.id}">Pokaż akcesoria</a></button>
+    <button><a href="/ingredient/all/${experiment.id}">Pokaż składniki</a></button>
+    <button><a href="/reactions/all/${experiment.id}">Pokaż przebieg doświadczenia</a></button>
+
+
+
+
+<%--TODO dodać te wszystkie akcesoria, składniki, i po kolei co ma się wydarzać --%>
+
 
 </body>
 </html>
