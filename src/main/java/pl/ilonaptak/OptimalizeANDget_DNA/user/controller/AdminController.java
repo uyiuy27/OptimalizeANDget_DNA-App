@@ -23,7 +23,7 @@ public class AdminController {
     @ResponseBody
     public String admin(@AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
-        return "Hello" + user.getUserName();
+        return "Hello" + user.getUsername();
     }
 
     @GetMapping("/users/all")

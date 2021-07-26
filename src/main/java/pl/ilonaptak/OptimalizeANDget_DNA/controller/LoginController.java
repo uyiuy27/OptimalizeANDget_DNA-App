@@ -1,6 +1,7 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,13 @@ public class LoginController {
     @ResponseBody
     public String loginError() {
         return "logowanie nie poszło najlepiej :<";
+    }
+
+    @GetMapping("/logout")
+    @ResponseBody
+    public String logout() {
+        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+        return "wylogowano";
     }
 
 

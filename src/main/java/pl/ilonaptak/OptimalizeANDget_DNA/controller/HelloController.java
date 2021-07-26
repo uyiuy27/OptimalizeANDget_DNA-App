@@ -40,7 +40,7 @@ public class HelloController {
             return "home/form";
         }
         userService.save(user);
-        return "redirect:/user/hinew";
+        return "redirect:/";
     }
 
 //    @GetMapping("/")
@@ -57,7 +57,8 @@ public class HelloController {
 
     @GetMapping("/")
     public String allPublicExperiments(Model model) {
-        model.addAttribute("experiments", experimentService.findAllByVisibility("public"));
+//        model.addAttribute("experiments", experimentService.findAllByVisibility("public"));
+        model.addAttribute("experiments", experimentService.findAll());
         return "home/home";
     }
 

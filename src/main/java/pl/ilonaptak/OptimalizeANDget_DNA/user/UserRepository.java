@@ -13,7 +13,7 @@ interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findById(Integer id);
 
-    User findByUserName(String login);
+    User findByUsername(String login);
 
     List<User> findAllByRole(String role);
 

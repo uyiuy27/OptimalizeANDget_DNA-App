@@ -34,8 +34,8 @@ public class UserService {
         return UserDtoConverter.convertUserToUserDto(user.orElse(null), new UserEditDto());
     }
 
-    public User findByLogin(String login) {
-        return userRepository.findByUserName(login);
+    public User findByUserName(String login) {
+        return userRepository.findByUsername(login);
     }
 
     public List<User> findAllByRole(String role) {
