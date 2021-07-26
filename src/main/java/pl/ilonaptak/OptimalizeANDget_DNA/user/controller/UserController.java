@@ -4,12 +4,10 @@ package pl.ilonaptak.OptimalizeANDget_DNA.user.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
 
-import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,9 +16,7 @@ public class UserController {
 
     private final UserService userService;
 
-
-
-    @GetMapping("/details/{id}")
+    @GetMapping("/account/{id}")
     public String showUserDetails (@PathVariable int id, Model model) {
         model.addAttribute("details", userService.findById(id));
         return "user/details";

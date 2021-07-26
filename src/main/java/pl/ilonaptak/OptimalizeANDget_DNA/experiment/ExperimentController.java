@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
 
 import javax.validation.Valid;
 
@@ -17,25 +18,27 @@ import javax.validation.Valid;
 public class ExperimentController {
 
     private final ExperimentService experimentService;
-
+    private final UserService userService;
 
 
     @GetMapping("/add")
 //    @ResponseBody
-    public String add(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
-//        User user = currentUser.getUser();
-//        model.addAttribute("currentUserId", user.getId());
+    public String add(Model model) {
         model.addAttribute("experiment", new Experiment());
         return "experiment/form";
     }
 
     @PostMapping("/add")
-    public String add(@Valid Experiment experiment, BindingResult bindingResult) {
+    public String add(@Valid Experiment experiment, BindingResult bindingResult, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         if (bindingResult.hasErrors()) {
             return "experiment/form";
         }
+        User user = currentUser.getUser();
+        int userId = user.getId();
+        experiment.setUser(userService.findById(userId));
         experimentService.save(experiment);
-        return "redirect:user/experiment/all";
+
+        return "redirect:/experiment/all";
     }
 
     @GetMapping("/update/{id}")
@@ -53,7 +56,7 @@ public class ExperimentController {
             return "experiment/form";
         }
         experimentService.save(experiment);
-        return "redirect:user/experiment/all";
+        return "redirect:/experiment/all";
     }
 
 
@@ -69,7 +72,6 @@ public class ExperimentController {
         model.addAttribute("experiment", experimentService.findById(id));
         return "experiment/details";
     }
-
 
 
 }
