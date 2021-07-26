@@ -1,9 +1,11 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.user;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
+@Getter
 public class CurrentUser extends User {
 
     private final pl.ilonaptak.OptimalizeANDget_DNA.user.User user;
@@ -14,7 +16,4 @@ public class CurrentUser extends User {
         this.user = user;
     }
 
-    public pl.ilonaptak.OptimalizeANDget_DNA.user.User getUser() {
-        return user;
-    }
 }

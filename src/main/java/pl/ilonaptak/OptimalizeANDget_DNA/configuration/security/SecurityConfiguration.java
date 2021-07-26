@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -24,18 +25,16 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests() // wszystkie żądania mają być autoryzowane, zapinamy się na adresy które chcemy zabezpieczyć
                 .antMatchers("/").permitAll()
-//                .antMatchers("/about")
-//                .authenticated()
-                .antMatchers("/admin/**")
-                .hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/experiment/**").hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .failureUrl("/login/error") // tu tarafia jak logowanie się nie powiedzie
                 .and()
                 .logout()
-                .logoutSuccessUrl("/")
-                .permitAll();
-
+                .logoutUrl("/");
     }
 
     @Bean

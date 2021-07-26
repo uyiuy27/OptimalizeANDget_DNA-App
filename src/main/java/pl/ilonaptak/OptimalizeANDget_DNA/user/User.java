@@ -58,9 +58,6 @@ public class User {
         firstLoginOn = LocalDate.now();
     }
 
-    UserDto getAsDTO() {
-        return new UserDto(this.id, this.userName, this.email, this.workplace, this.position);
-    }
 
 
 }
