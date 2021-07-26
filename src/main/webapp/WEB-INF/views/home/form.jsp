@@ -22,8 +22,8 @@
 <form:form method="post" modelAttribute="user">
     <form:errors path="*"/>
     <form:hidden path="id"/>
-    Login*: <form:input path="userName"/><br>
-    <form:errors path="userName"/><br>
+    Login*: <form:input path="username"/><br>
+    <form:errors path="username"/><br>
     Email*: <form:input path="email"/><br>
     <form:errors path="email"/><br>
     Hasło*: <form:input type="password" path="password"/><br>

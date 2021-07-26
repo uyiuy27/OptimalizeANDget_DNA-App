@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: ilona
@@ -8,9 +10,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Szczegóły doświadczenia ${experiment.name}| OptimalizeANDgetDNA</title>
 </head>
 <body>
+
+    <h4><b>Nazwa:</b></h4>
+    <h5>${experiment.name}</h5>
+    <h4><b>Opis:</b></h4>
+    <h5>${experiment.description}</h5>
+    <h4><b>Autor oryginalnej metody:</b></h4>
+    <h5>${experiment.author}</h5>
+    <h4><b>Żródło:</b></h4>
+    <h5>${experiment.resource}</h5>
+    <h4><b>Planowany czas wykonania:</b></h4>
+    <h5>${experiment.plannedDuration}</h5>
+    <h4><b>Trudność:</b></h4>
+    <h5>${experiment.difficulty}</h5>
+    <h5><b>Dodano:</b></h5>
+    <h6>${experiment.createdOn} ${experiment.user.username}</h6>
+
 
 </body>
 </html>

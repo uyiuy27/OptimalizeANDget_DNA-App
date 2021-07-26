@@ -14,17 +14,18 @@
 <body>
 Pola oznaczone * są wymagane <br>
 <form:form method="post" modelAttribute="experiment">
+    <form:errors path="*"/>
 <%--    <form:errors path="*"/>--%>
     <form:hidden path="id"/>
-    <form:hidden path="currentUserId"/>
+<%--    <form:hidden path="currentUserId"/>--%>
     Nazwa: <form:input path="name"/><br>
     <form:errors path="name"/><br>
     Opis*: <form:input path="description"/><br>
     <form:errors path="description"/><br>
     Autor oryginalnej metody: <form:input path="author"/><br>
-    <form:errors path="password"/><br>
+    <form:errors path="author"/><br>
     Żródło (artykuł/książka): <form:input path="resource"/><br>
-    <form:errors path="workplace"/><br>
+    <form:errors path="resource"/><br>
     Trudność: <form:input path="difficulty"/><br>
     <form:errors path="difficulty"/><br>
     Planowany czas: <form:input path="plannedDuration"/><br>

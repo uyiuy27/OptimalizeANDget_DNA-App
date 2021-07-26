@@ -11,7 +11,7 @@ public class ExperimentService {
 
     private final ExperimentRepository experimentRepository;
 
-    List<Experiment> findAll() {
+    public List<Experiment> findAll() {
         return experimentRepository.findAll();
     }
 

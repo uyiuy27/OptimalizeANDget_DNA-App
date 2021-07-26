@@ -6,8 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -23,10 +23,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @NotEmpty
-    String userName;
+    @NotBlank
+    String username;
 
-//    @Email
+    @Email
     @NotEmpty
     @Column(nullable = false, unique = true, length = 40)
     String email;
@@ -45,11 +45,8 @@ public class User {
     String role;
 
 
-//    @OneToMany
-//    List<Experiment> experiment;
-
     public User(String login, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.userName = login;
+        this.username = login;
         this.password = password;
     }
 
@@ -57,7 +54,5 @@ public class User {
     public void prePersist() {
         firstLoginOn = LocalDate.now();
     }
-
-
 
 }

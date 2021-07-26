@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 
 import javax.validation.Valid;
 
@@ -20,10 +21,12 @@ public class ExperimentController {
 
 
     @GetMapping("/add")
+//    @ResponseBody
     public String add(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
-        model.addAttribute("currentUserId", currentUser.getUser().getId());
+//        User user = currentUser.getUser();
+//        model.addAttribute("currentUserId", user.getId());
         model.addAttribute("experiment", new Experiment());
-        return "home/form";
+        return "experiment/form";
     }
 
     @PostMapping("/add")
@@ -59,6 +62,12 @@ public class ExperimentController {
     public String deleteUser(@PathVariable int id) {
         experimentService.delete(id);
         return "deleted";
+    }
+
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable int id, Model model) {
+        model.addAttribute("experiment", experimentService.findById(id));
+        return "experiment/details";
     }
 
 

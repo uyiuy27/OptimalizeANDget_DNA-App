@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -27,12 +28,22 @@ Zaloguj się, żeby zobaczyć szczegóły.
 
 <table border="1">
     <c:forEach items="${experiments}" var="experiment">
+        <thead>
         <tr>
-            <td>Autor oryginalnej metody: ${experiment.author}</td>
-            <td>Trudność wykonania: ${experiment.difficultyLevel}</td>
+            <td>Autor oryginalnej metody:</td>
+            <td>Trudność wykonania:</td>
+            <td>Nazwa</td>
+            <td>Więcej</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>${experiment.author}</td>
+            <td>${experiment.difficulty}</td>
             <td>${experiment.name}</td>
             <td><button><a href="/experiment/details/${experiment.id}">Szczegóły</a></button></td>
         </tr>
+        </tbody>
     </c:forEach>
 </table> <br> <br>
 

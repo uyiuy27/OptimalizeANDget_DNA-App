@@ -30,7 +30,6 @@ public class Experiment {
     @Size(max = 500)
     String description;
 
-    @NotNull
     LocalDateTime createdOn;
 
     boolean done;

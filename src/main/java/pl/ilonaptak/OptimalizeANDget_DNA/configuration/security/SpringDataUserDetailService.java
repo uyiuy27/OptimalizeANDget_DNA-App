@@ -7,11 +7,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
 
 import java.util.HashSet;
 import java.util.Set;
+
 
 public class SpringDataUserDetailService implements UserDetailsService {
 
@@ -22,17 +24,13 @@ public class SpringDataUserDetailService implements UserDetailsService {
         this.userService = userService;
     }
 
-
     @Override
-    public UserDetails loadUserByUsername(String login) {
-        User user = userService.findByLogin(login);
-        if (user == null) {
-            throw new UsernameNotFoundException(login);
-        }
+    public UserDetails loadUserByUsername(String username) {
+        User user = userService.findByUserName(username);
+        if (user == null) {throw new UsernameNotFoundException(username); }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
-//        return new CurrentUser(user.getUserName(), user.getPassword(), grantedAuthorities, user);
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grantedAuthorities);
-
+        return new CurrentUser(user.getUsername(),user.getPassword(), grantedAuthorities, user);
     }
+
 }
