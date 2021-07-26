@@ -1,6 +1,7 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
 
@@ -43,11 +45,6 @@ public class HelloController {
         return "redirect:/";
     }
 
-//    @GetMapping("/")
-//    @ResponseBody
-//    public String home() {
-//        return "home";
-//    }
 
     @GetMapping("/about")
     @ResponseBody
@@ -56,12 +53,14 @@ public class HelloController {
     }
 
     @GetMapping("/")
-    public String allPublicExperiments(Model model) {
-//        model.addAttribute("experiments", experimentService.findAllByVisibility("public"));
-        model.addAttribute("experiments", experimentService.findAll());
+    public String allPublicExperiments(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        model.addAttribute("experiments", experimentService.findAllByVisibility("public"));
+        if (currentUser != null) {
+            User user = currentUser.getUser();
+            model.addAttribute("user", user);
+        }
         return "home/home";
     }
-
 
 
 }

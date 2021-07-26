@@ -17,7 +17,7 @@ class UserEditDto {
     int id;
 
     @NotEmpty
-    String userName;
+    String username;
 
     @NotEmpty
     @Email
