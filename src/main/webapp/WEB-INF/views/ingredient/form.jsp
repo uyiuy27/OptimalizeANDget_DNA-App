@@ -13,7 +13,7 @@
 </head>
 <body>
 Pola oznaczone * są wymagane <br>
-<form:form method="post" modelAttribute="accessory">
+<form:form method="post" modelAttribute="ingredient">
     <form:errors path="*"/>
     <%--    <form:errors path="*"/>--%>
     <form:hidden path="id"/>

@@ -23,7 +23,7 @@ public class HelloController {
     private final UserService userService;
     private final ExperimentService experimentService;
 
-    @RequestMapping("/hello")
+    @RequestMapping("/home")
     public String hello() {
         return "home/home";
     }

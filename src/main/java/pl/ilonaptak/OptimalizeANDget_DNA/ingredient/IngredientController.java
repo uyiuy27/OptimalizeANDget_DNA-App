@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.ilonaptak.OptimalizeANDget_DNA.accessory.Accessory;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
+import pl.ilonaptak.OptimalizeANDget_DNA.reaction.Reaction;
 
 import javax.validation.Valid;
 
@@ -23,18 +24,22 @@ public class IngredientController {
     public String add(Model model, @PathVariable int id) {
 //        TODO : dodać to dla usera w widoku jego eksperymentów
         model.addAttribute("experimentId", id);
-        model.addAttribute("accessory", new Ingredient());
-        return "ingredient/form";
+        model.addAttribute("ingredient", new Ingredient());
+        return "experiment/details";
     }
 
-    @PostMapping("/add")
-    public String add(@Valid Ingredient ingredient, BindingResult bindingResult, Model model) {
+    @PostMapping("/add/{id}")
+    public String add(@Valid Ingredient ingredient, BindingResult bindingResult, Model model, @PathVariable int id) {
         if (bindingResult.hasErrors()) {
-            return "ingredient/form";
+            if (model.getAttribute("ingredient") == null || model.getAttribute("reaction") == null) {
+                model.addAttribute("accessory", new Accessory());
+                model.addAttribute("reaction", new Reaction());
+            }
+            return "experiment/details";
         }
         try {
-            int experimentId = (int) model.getAttribute("experimentId");
-            ingredient.setExperiment(experimentService.findById(experimentId));
+//            int experimentId = (int) model.getAttribute("experimentId");
+            ingredient.setExperiment(experimentService.findById(id));
             ingredientService.save(ingredient);
         } catch (NullPointerException e) {
             e.printStackTrace();
