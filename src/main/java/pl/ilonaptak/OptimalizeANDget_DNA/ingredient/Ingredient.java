@@ -29,8 +29,6 @@ public class Ingredient {
 
     String quantity; // ilość
 
-    double cost;
-
     boolean dangerous;
 
 

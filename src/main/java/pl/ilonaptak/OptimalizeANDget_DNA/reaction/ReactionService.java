@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-class ReactionService {
+public class ReactionService {
 
     private final ReactionRepository reactionRepository;
 

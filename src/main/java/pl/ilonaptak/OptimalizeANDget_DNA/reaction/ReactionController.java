@@ -16,26 +16,28 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ReactionController {
 
-
     private final ReactionService reactionService;
     private final ExperimentService experimentService;
 
     @GetMapping("/add/{id}")
     public String add(Model model, @PathVariable int id) {
-//        TODO : dodać to dla usera w widoku jego eksperymentów
         model.addAttribute("experimentId", id);
         model.addAttribute("reaction", new Reaction());
-        return "reaction/form";
+        return "experiment/details";
     }
 
-    @PostMapping("/add")
-    public String add(@Valid Reaction reaction, BindingResult bindingResult, Model model) {
+    @PostMapping("/add/{id}")
+    public String add(@Valid Reaction reaction, BindingResult bindingResult, Model model, @PathVariable int id) {
         if (bindingResult.hasErrors()) {
-            return "reaction/form";
+            if (model.getAttribute("ingredient") == null || model.getAttribute("reaction") == null) {
+                model.addAttribute("ingredient", new Ingredient());
+                model.addAttribute("accessory", new Accessory());
+            }
+            return "experiment/details";
         }
         try {
-            int experimentId = (int) model.getAttribute("experimentId");
-            reaction.setExperiment(experimentService.findById(experimentId));
+//            int experimentId = (int) model.getAttribute("experimentId");
+            reaction.setExperiment(experimentService.findById(id));
             reactionService.save(reaction);
         } catch (NullPointerException e) {
             e.printStackTrace();

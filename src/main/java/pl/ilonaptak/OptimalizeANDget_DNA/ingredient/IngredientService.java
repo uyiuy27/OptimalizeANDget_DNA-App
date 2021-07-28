@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-class IngredientService {
+public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
 

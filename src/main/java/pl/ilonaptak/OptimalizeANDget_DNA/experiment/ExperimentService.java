@@ -23,6 +23,10 @@ public class ExperimentService {
         return experimentRepository.findAllByVisibility(visibility);
     }
 
+    public List<Experiment> findAllByUserId(Integer id) {
+        return experimentRepository.findAllByUserId(id);
+    }
+
     void save(Experiment experiment) {
         experiment.setDone(false);
         experimentRepository.save(experiment);

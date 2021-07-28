@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
+import pl.ilonaptak.OptimalizeANDget_DNA.ingredient.Ingredient;
+import pl.ilonaptak.OptimalizeANDget_DNA.reaction.Reaction;
 
 import javax.validation.Valid;
 
@@ -19,28 +21,30 @@ public class AccessoryController {
 
     @GetMapping("/add/{id}")
     public String add(Model model, @PathVariable int id) {
-//        TODO : dodać to dla usera w widoku jego eksperymentów
         model.addAttribute("experimentId", id);
         model.addAttribute("accessory", new Accessory());
-        return "accessory/form";
+        return "experiment/details";
     }
 
-    @PostMapping("/add")
-    public String add(@Valid Accessory accessory, BindingResult bindingResult, Model model) {
+    @PostMapping("/add/{id}")
+    public String add(@Valid Accessory accessory, BindingResult bindingResult, Model model, @PathVariable int id) {
+
         if (bindingResult.hasErrors()) {
-            return "accessory/form";
+            if (model.getAttribute("ingredient") == null || model.getAttribute("reaction") == null) {
+                model.addAttribute("ingredient", new Ingredient());
+                model.addAttribute("reaction", new Reaction());
+            }
+            return "redirect:/experiment/details/" + id;
         }
         try {
-            int experimentId = (int) model.getAttribute("experimentId");
-            accessory.setExperiment(experimentService.findById(experimentId));
+//            int experimentId = (int) model.getAttribute("experimentId");
+            accessory.setExperiment(experimentService.findById(id));
             accessoryService.save(accessory);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        return "redirect:accessory/all";
+        return "redirect:/experiment/details/"+id;
     }
-
-
 
     @GetMapping("/all/{id}")
     public String findAllForExperiment(Model model, @PathVariable Integer id) {
@@ -48,13 +52,11 @@ public class AccessoryController {
         return "accessory/all";
     }
 
-
     @GetMapping("/update/{id}")
     public String update(@PathVariable int id, Model model) {
         model.addAttribute("accessory", accessoryService.getById(id));
         return "accessory/form";
     }
-
 
     @PostMapping("/update/{id}")
     @ResponseBody
@@ -72,6 +74,5 @@ public class AccessoryController {
         accessoryService.deleteById(id);
         return "deleted";
     }
-
 
 }

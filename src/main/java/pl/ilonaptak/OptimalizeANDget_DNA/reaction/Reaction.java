@@ -25,7 +25,7 @@ public class Reaction {
     @NotEmpty
     String description;
 
-    Duration time;
+    String time;
 
 
 
