@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
-class UserEditDto {
+public class UserEditDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -27,5 +27,14 @@ class UserEditDto {
 
     String position;
 
-
+    @Override
+    public String toString() {
+        return "UserEditDto{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", workplace='" + workplace + '\'' +
+                ", position='" + position + '\'' +
+                '}';
+    }
 }

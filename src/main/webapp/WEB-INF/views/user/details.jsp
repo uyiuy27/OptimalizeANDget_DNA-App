@@ -45,7 +45,6 @@
                     <td>${experiment.createdOn}</td>
                     <td>${experiment.plannedDuration}</td>
                     <td>
-                            <%--                TODO : ma odsyłąć do rozpiski całego doświadczenia --%>
                         <button><a href="/experiment/details/${experiment.id}">Otwórz</a></button>
                         <button><a href="/experiment/update/${experiment.id}">Edytuj</a></button>
                         <button><a href="/experiment/delete/${experiment.id}">Usuń</a></button>

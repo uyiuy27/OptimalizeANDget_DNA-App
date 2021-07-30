@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -16,9 +15,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService()).passwordEncoder(passwordEncoder());
-
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,8 +33,9 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .failureUrl("/login/error") // tu tarafia jak logowanie się nie powiedzie
                 .and()
-                .logout()
-                .logoutUrl("/");
+                .logout().logoutSuccessUrl("/")
+                .deleteCookies("JSESSIONID");
+
     }
 
     @Bean
@@ -49,7 +47,4 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     SpringDataUserDetailService customUserDetailsService() {
         return new SpringDataUserDetailService();
     }
-
-
-
 }

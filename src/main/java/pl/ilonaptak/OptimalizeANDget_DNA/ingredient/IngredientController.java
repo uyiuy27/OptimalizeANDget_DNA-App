@@ -1,6 +1,7 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.ingredient;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.ilonaptak.OptimalizeANDget_DNA.accessory.Accessory;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
 import pl.ilonaptak.OptimalizeANDget_DNA.reaction.Reaction;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 
 import javax.validation.Valid;
 
@@ -35,7 +38,7 @@ public class IngredientController {
                 model.addAttribute("accessory", new Accessory());
                 model.addAttribute("reaction", new Reaction());
             }
-            return "experiment/details";
+            return "redirect:/experiment/details/" + id;
         }
         try {
 //            int experimentId = (int) model.getAttribute("experimentId");
@@ -44,39 +47,18 @@ public class IngredientController {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        return "redirect:ingredient/all"; // TODO zmienić lądowanie dla akcji
+        return "redirect:/experiment/details/" + id;
     }
 
-
-    @GetMapping("/all/{id}")
-    public String findAllForExperiment(Model model, @PathVariable Integer id) {
-        model.addAttribute("ingredients", ingredientService.findAllByExperimentId(id));
-        return "ingredient/all";
-    }
-
-
-    @GetMapping("/update/{id}")
-    public String update(@PathVariable int id, Model model) {
-        model.addAttribute("ingredient", ingredientService.getById(id));
-        return "ingredient/form";
-    }
-
-
-    @PostMapping("/update/{id}")
-    @ResponseBody
-    public String update(@PathVariable int id, @Valid Ingredient ingredient, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "ingredient/form";
-        }
-        ingredientService.save(ingredient);
-        return "redirect:user/experiment/all";
-    }
 
     @RequestMapping("/delete/{id}")
-    @ResponseBody
-    public String delete(@PathVariable int id) {
-        ingredientService.deleteById(id);
-        return "deleted";
+    public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        User userExperiment = ingredientService.getById(id).getExperiment().getUser();
+        if (user.getId() == userExperiment.getId()) {
+            ingredientService.deleteById(id);
+        }
+        return "redirect:/user/account/"+user.getId();
     }
 
 

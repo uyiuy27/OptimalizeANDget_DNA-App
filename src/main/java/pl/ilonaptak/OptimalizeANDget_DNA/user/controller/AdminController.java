@@ -19,13 +19,13 @@ public class AdminController {
     private final UserService userService;
 
 // to z wykładów
-    @GetMapping
-    @ResponseBody
-    public String admin(@AuthenticationPrincipal CurrentUser currentUser) {
-        User user = currentUser.getUser();
-        return "Hello" + user.getUsername();
-    }
-
+//    @GetMapping
+//    @ResponseBody
+//    public String admin(@AuthenticationPrincipal CurrentUser currentUser) {
+//        User user = currentUser.getUser();
+//        return "Hello" + user.getUsername();
+//    }
+// TODO: ma się dodawać lista userów ale dto, również według roli wrzucamy listę dto, w widoku dodać opcję zmiany roli, banowania i usuwania userów
     @GetMapping("/users/all")
     public String allUsers(Model model) {
         model.addAttribute("users",userService.findAllByRole("ROLE_USER"));

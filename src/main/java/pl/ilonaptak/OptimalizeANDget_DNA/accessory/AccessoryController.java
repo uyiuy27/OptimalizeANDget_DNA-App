@@ -1,6 +1,7 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.accessory;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
 import pl.ilonaptak.OptimalizeANDget_DNA.ingredient.Ingredient;
 import pl.ilonaptak.OptimalizeANDget_DNA.reaction.Reaction;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 
 import javax.validation.Valid;
 
@@ -46,33 +49,16 @@ public class AccessoryController {
         return "redirect:/experiment/details/"+id;
     }
 
-    @GetMapping("/all/{id}")
-    public String findAllForExperiment(Model model, @PathVariable Integer id) {
-        model.addAttribute("accessories", accessoryService.findAllByExperimentId(id));
-        return "accessory/all";
-    }
 
-    @GetMapping("/update/{id}")
-    public String update(@PathVariable int id, Model model) {
-        model.addAttribute("accessory", accessoryService.getById(id));
-        return "accessory/form";
-    }
-
-    @PostMapping("/update/{id}")
-    @ResponseBody
-    public String update(@PathVariable int id, @Valid Accessory accessory, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "accessory/form";
-        }
-        accessoryService.save(accessory);
-        return "redirect:user/experiment/all";
-    }
 
     @RequestMapping("/delete/{id}")
-    @ResponseBody
-    public String delete(@PathVariable int id) {
-        accessoryService.deleteById(id);
-        return "deleted";
+    public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        User userExperiment = accessoryService.getById(id).getExperiment().getUser();
+        if (user.getId() == userExperiment.getId()) {
+            accessoryService.deleteById(id);
+        }
+        return "redirect:/user/account/"+user.getId();
     }
 
 }
