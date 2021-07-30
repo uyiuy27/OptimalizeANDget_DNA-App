@@ -46,8 +46,7 @@ public class ExperimentController {
         int userId = user.getId();
         experiment.setUser(userService.findById(userId));
         experimentService.save(experiment);
-
-        return "redirect:/experiment/all";
+        return "redirect:/user/account/"+userId;
     }
 
     @GetMapping("/update/{id}")
@@ -59,28 +58,37 @@ public class ExperimentController {
 
     @PostMapping("/update/{id}")
     @ResponseBody
-    public String update(@PathVariable int id, @Valid Experiment experiment, BindingResult bindingResult) {
+    public String update(@PathVariable int id, @Valid Experiment experiment, BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser) {
         if (bindingResult.hasErrors()) {
 //            model.addAttribute("experiment", experimentService.findById(id)); // sprawdzić czy to się przyda
             return "experiment/form";
         }
-        experimentService.save(experiment);
-        return "redirect:/experiment/all";
+        User user = currentUser.getUser();
+        User userExperiment = experimentService.findById(id).getUser();
+        if (user.getId() == userExperiment.getId()) {
+            experimentService.save(experiment);
+        }
+        return "redirect:/user/account/"+user.getId();
     }
 
 
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public String delete(@PathVariable int id) {
-        experimentService.delete(id);
-        return "deleted";
+    public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        User userExperiment = experimentService.findById(id).getUser();
+        if (user.getId() == userExperiment.getId()) {
+            experimentService.delete(id);
+        }
+        return "redirect:/user/account/"+user.getId();
     }
 
     // szczegóły może zobaczyć tylko autor lub zalogowany user jeżeli jest ustawione jako publiczne
     @GetMapping("/details/{id}")
     public String details(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
-        if (experimentService.findById(id).getVisibility().equals("public") || experimentService.findById(id).getUser() == user) {
+        User userExperiment = experimentService.findById(id).getUser();
+        if (experimentService.findById(id).getVisibility().equals("public") || user.getId() == userExperiment.getId()) {
             model.addAttribute("experiment", experimentService.findById(id));
             model.addAttribute("accessories", accessoryService.findAllByExperimentId(id));
             model.addAttribute("accessory", new Accessory());
@@ -88,8 +96,9 @@ public class ExperimentController {
             model.addAttribute("ingredient", new Ingredient());
             model.addAttribute("reactions", reactionService.findAllByExperimentId(id));
             model.addAttribute("reaction", new Reaction());
-//            if(experimentService.findById(id).getUser() == user) {
-            model.addAttribute("user", user);
+            if (user.getId() == userExperiment.getId()) {
+                model.addAttribute("user", user);
+            }
             return "experiment/details";
         }
 

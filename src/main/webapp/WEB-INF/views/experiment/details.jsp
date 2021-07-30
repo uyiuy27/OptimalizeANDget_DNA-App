@@ -12,29 +12,16 @@
 <html>
 <head>
     <title>Szczegóły doświadczenia ${experiment.name}| OptimalizeANDgetDNA</title>
-    <style>
-        #accessoryList {
-            display: none;
-        }
+        <style>
+            .show {
+                display: none;
+            }
 
-        #ingredientList {
-            display: none;
-        }
+            .add {
+                display: none;
+            }
 
-        #reactionList {
-            display: none;
-        }
-
-        #formIngredients {
-            display: none;
-        }
-        #formAccessory {
-            display: none;
-        }
-        #formReaction {
-            display: none;
-        }
-    </style>
+        </style>
 </head>
 <body>
 
@@ -53,180 +40,171 @@
 <h5><b>Dodano:</b></h5>
 <h6>${experiment.createdOn} ${experiment.user.username}</h6>
 
-<button id="accessory">Pokaż akcesoria</button>
 <br>
-<button id="ingredients">Pokaż składniki</button>
-<br>
-<button id="reactions">Pokaż przebieg doświadczenia</button>
-<br>
-
-<div id="accessoryList">
-    <c:choose>
-        <c:when test="${!empty accessories}">
-            <ul><h3>Akcesoria</h3>
-                <c:forEach items="${accessories}" var="accessory">
-                    <li>
-                            ${accessory.name} Ilość: ${accessory.quantity}
-                        <button><a href="/accessory/delete/${accessory.id}">Usuń</a></button>
-                    </li>
-                </c:forEach>
-            </ul>
-        </c:when>
-    </c:choose>
-    <%--    // TODO: chcemy żeby się dodawało tutaj pod spodem po kliknięciu na bieżąco--%>
-    <%--    <button><a href="/accessory/add/${experiment.id}">Dodaj akcesoria</a></button>--%>
-    <c:choose>
-        <c:when test="${!empty user}">
-            <button id="addAccessory">Dodaj akcesoria</button>
-            <div id="formAccessory">
-                Pola oznaczone * są wymagane <br>
-                <form:form action="/accessory/add/1" method="post" modelAttribute="accessory">
-                    <form:errors path="*"/>
-                    <%--    <form:errors path="*"/>--%>
-                    <form:hidden path="id"/>
-                    Nazwa*: <form:input path="name"/><br>
-                    <form:errors path="name"/><br>
-                    Ilość: <form:input path="quantity"/><br>
-                    <form:errors path="quantity"/><br>
-                    <input type="submit">
-                </form:form>
-            </div>
-        </c:when>
-    </c:choose>
-</div>
-<br>
-<div id="ingredientList">
-    <c:choose>
-        <c:when test="${!empty ingredients}">
-            <ul><h3>Składniki</h3>
-                <li>
-                    <c:forEach items="${ingredients}" var="ingredient">
-                        ${ingredient.name} Ilość: ${ingredient.quantity} Stężenie: ${ingredient.concentration} ${ingredient.quantity ? "Uwaga! Produkt niebezpieczny." : ""}
-                        <button><a href="/ingredient/delete/${ingredient.id}">Usuń</a></button>
-                        <br>
+<section>
+    <div class="show">
+        <c:choose>
+            <c:when test="${!empty accessories}">
+                <ul><h3>Akcesoria</h3>
+                    <c:forEach items="${accessories}" var="accessory">
+                        <li>
+                                ${accessory.name} Ilość: ${accessory.quantity}
+                            <c:choose>
+                                <c:when test="${!empty user}">
+                                    <button><a href="/accessory/delete/${accessory.id}">Usuń</a></button>
+                                </c:when>
+                            </c:choose>
+                        </li>
                     </c:forEach>
-                </li>
-            </ul>
-        </c:when>
-    </c:choose>
-    <button><a href="/ingredient/add/${experiment.id}">Dodaj składniki</a></button>
-    <c:choose>
-        <c:when test="${!empty user}">
-            <button id="addIngredients">Dodaj składniki</button>
-            <div id="formIngredients">
-                Pola oznaczone * są wymagane <br>
-                <form:form action="/ingredient/add/${experiment.id}" method="post" modelAttribute="ingredient">
-                    <form:errors path="*"/>
-                    <%--    <form:errors path="*"/>--%>
-                    <form:hidden path="id"/>
-                    Nazwa*: <form:input path="name"/><br>
-                    <form:errors path="name"/><br>
-                    Ilość: <form:input path="quantity"/><br>
-                    <form:errors path="quantity"/><br>
-                    Stężenie: <form:input path="concentration"/><br>
-                    <form:errors path="concentration"/><br>
-                    Bezpieczeństwo produktu: <br>
-                    Bezpieczny: <form:radiobutton path="dangerous" value="false"/> <br>
-                    Stwarzający zagrożenie: <form:radiobutton path="dangerous" value="true"/>
-                    <input type="submit">
-                </form:form>
-            </div>
-        </c:when>
-    </c:choose>
-</div>
+                </ul>
+            </c:when>
+        </c:choose>
+        <%--    // TODO: chcemy żeby się dodawało tutaj pod spodem po kliknięciu na bieżąco--%>
+        <%--    <button><a href="/accessory/add/${experiment.id}">Dodaj akcesoria</a></button>--%>
+        <c:choose>
+            <c:when test="${!empty user}">
+                <section>
+                    <div class="add">
+                        Pola oznaczone * są wymagane <br>
+                        <form:form action="/accessory/add/1" method="post" modelAttribute="accessory">
+                            <form:errors path="*"/>
+                            <%--    <form:errors path="*"/>--%>
+                            <form:hidden path="id"/>
+                            Nazwa*: <form:input path="name"/><br>
+                            <form:errors path="name"/><br>
+                            Ilość: <form:input path="quantity"/><br>
+                            <form:errors path="quantity"/><br>
+                            <input type="submit">
+                        </form:form>
+                    </div>
+                    <button class="btnAdd">Dodaj akcesoria</button>
+                </section>
+            </c:when>
+        </c:choose>
+    </div>
+    <button class="btn">Pokaż/ukryj akcesoria</button>
+    <br>
+</section>
 <br>
-
-<div id="reactionList">
-    <c:choose>
-        <c:when test="${!empty reactions}">
-            <ol><h3>Przebieg reakcji</h3>
-                <c:forEach items="${reactions}" var="reaction">
+<section>
+    <div class="show">
+        <c:choose>
+            <c:when test="${!empty ingredients}">
+                <ul><h3>Składniki</h3>
                     <li>
-                            ${reaction.description} ${empty reaction.time ? "" : " Czas: ".concat(reaction.time)}
-                        <button><a href="/reaction/delete/${reaction.id}">Usuń</a></button>
-                        <br>
+                        <c:forEach items="${ingredients}" var="ingredient">
+                            ${ingredient.name} Ilość: ${ingredient.quantity} Stężenie: ${ingredient.concentration} ${ingredient.quantity ? "Uwaga! Produkt niebezpieczny." : ""}
+                            <c:choose>
+                                <c:when test="${!empty user}">
+                                    <button><a href="/ingredient/delete/${ingredient.id}">Usuń</a></button>
+                                </c:when>
+                            </c:choose>
+                            <br>
+                        </c:forEach>
                     </li>
-                </c:forEach>
-            </ol>
-        </c:when>
-    </c:choose>
-    <%--    <button><a href="/reaction/add/${experiment.id}">Dodaj kolejny etap</a></button>--%>
-    <c:choose>
-        <c:when test="${!empty user}">
-            <button id="addReaction">Dodaj kolejny etap</button>
-            <div id="formReaction">
-                Pola oznaczone * są wymagane <br>
-                <form:form action="/reaction/add/${experiment.id}" method="post" modelAttribute="reaction">
-                    <form:errors path="*"/>
-                    <%--    <form:errors path="*"/>--%>
-                    <form:hidden path="id"/>
-                    Opis*: <form:input path="description"/><br>
-                    <form:errors path="description"/><br>
-                    Czas <form:input path="time"/><br>
-                    <form:errors path="time"/><br>
-                    <input type="submit">
-                </form:form>
-            </div>
-        </c:when>
-    </c:choose>
-</div>
+                </ul>
+            </c:when>
+        </c:choose>
+        <c:choose>
+            <c:when test="${!empty user}">
+                <section>
+                    <div class="add">
+                        Pola oznaczone * są wymagane <br>
+                        <form:form action="/ingredient/add/${experiment.id}" method="post" modelAttribute="ingredient">
+                            <form:errors path="*"/>
+                            <%--    <form:errors path="*"/>--%>
+                            <form:hidden path="id"/>
+                            Nazwa*: <form:input path="name"/><br>
+                            <form:errors path="name"/><br>
+                            Ilość: <form:input path="quantity"/><br>
+                            <form:errors path="quantity"/><br>
+                            Stężenie: <form:input path="concentration"/><br>
+                            <form:errors path="concentration"/><br>
+                            Bezpieczeństwo produktu: <br>
+                            Bezpieczny: <form:radiobutton path="dangerous" value="false"/> <br>
+                            Stwarzający zagrożenie: <form:radiobutton path="dangerous" value="true"/>
+                            <input type="submit">
+                        </form:form>
+                    </div>
+                    <button class="btnAdd">Dodaj składniki</button>
+                </section>
+            </c:when>
+        </c:choose>
+    </div>
+    <button class="btn">Pokaż/ukryj składniki</button>
+</section>
+<br>
+<section>
+    <div class="show">
+        <c:choose>
+            <c:when test="${!empty reactions}">
+                <ol><h3>Przebieg reakcji</h3>
+                    <c:forEach items="${reactions}" var="reaction">
+                        <li>
+                                ${reaction.description} ${empty reaction.time ? "" : " Czas: ".concat(reaction.time)}
+                            <c:choose>
+                                <c:when test="${!empty user}">
+                                    <button><a href="/reaction/delete/${reaction.id}">Usuń</a></button>
+                                </c:when>
+                            </c:choose>
+                            <br>
+                        </li>
+                    </c:forEach>
+                </ol>
+            </c:when>
+        </c:choose>
+        <c:choose>
+            <c:when test="${!empty user}">
+                <section>
+                <div class="add">
+                    Pola oznaczone * są wymagane <br>
+                    <form:form action="/reaction/add/${experiment.id}" method="post" modelAttribute="reaction">
+                        <form:errors path="*"/>
+                        <%--    <form:errors path="*"/>--%>
+                        <form:hidden path="id"/>
+                        Opis*: <form:input path="description"/><br>
+                        <form:errors path="description"/><br>
+                        Czas <form:input path="time"/><br>
+                        <form:errors path="time"/><br>
+                        <input type="submit">
+                    </form:form>
+                </div>
+                    <button class="btnAdd">Dodaj kolejny etap</button>
+                </section>
+            </c:when>
+        </c:choose>
+    </div>
+    <button class="btn">Pokaż/ukryj przebieg doświadczenia</button>
+</section>
 <br>
 
 <script>
-    const accButton = document.querySelector("#accessory");
-    const accButtonAdd = document.querySelector("#addAccessory");
-    const accDiv = document.querySelector("#accessoryList")
-    const accDivForm = document.querySelector("#formAccessory")
+    document.addEventListener("DOMContentLoaded", function (event) {
+        event.preventDefault();
+        const buttons = document.querySelectorAll(".btn");
+        const buttonsAdd = document.querySelectorAll(".btnAdd");
 
-    const ingredientButton = document.querySelector("#ingredients");
-    const ingredientButtonAdd = document.querySelector("#addIngredients");
-    const ingredientDiv = document.querySelector("#ingredientList")
-    const ingredientDivForm = document.querySelector("#formIngredients")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const div = this.parentElement.firstElementChild;
+                if (div.style.display === "block") {
+                    div.style.display = "none";
+                } else {
+                    div.style.display = "block";
+                }
+            });
+        });
 
-    const reactButton = document.querySelector("#reactions");
-    const reactButtonAdd = document.querySelector("#addReaction");
-    const reactDiv = document.querySelector("#reactionList")
-    const reactDivForm = document.querySelector("#formReaction")
-
-    accButton.addEventListener("click", function (event) {
-        if (accDiv.style.display === "block") {
-            accDiv.style.display = "none";
-        } else {
-            accDiv.style.display = "block";
-        }
-    });
-    ingredientButton.addEventListener("click", function (event) {
-        if (ingredientDiv.style.display === "block") {
-            ingredientDiv.style.display = "none"
-        } else {
-            ingredientDiv.style.display = "block";
-        }
-    });
-    reactButton.addEventListener("click", function (event) {
-        if (ingredientDiv.style.display === "block") {
-            ingredientDiv.style.display = "none"
-        }
-        reactDiv.style.display = "block";
-    });
-    accButtonAdd.addEventListener("click", function (event) {
-    if(accDivForm.style.display === "block") {
-    accDivForm.style.display = "none";
-    } else {
-    accDivForm.style.display = "block";
-    }
-    });
-    ingredientButtonAdd.addEventListener("click", function (event) {
-    if(ingredientDivForm.style.display === "block") {
-    ingredientDivForm.style.display = "none"
-    } else {
-    ingredientDivForm.style.display = "block";
-    }
-    });
-    reactButtonAdd.addEventListener("click", function (event) {
-    if(ingredientDivForm.style.display === "block") {
-    ingredientDivForm.style.display = "none"
-    }
-    reactDivForm.style.display = "block";
+        buttonsAdd.forEach(function (buttonAdd) {
+            buttonAdd.addEventListener("click", function () {
+                const div = this.parentElement.firstElementChild;
+                if (div.style.display === "block") {
+                    div.style.display = "none";
+                } else {
+                    div.style.display = "block";
+                }
+            });
+        });
     });
 </script>
 
