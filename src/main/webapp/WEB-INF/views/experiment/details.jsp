@@ -12,16 +12,16 @@
 <html>
 <head>
     <title>Szczegóły doświadczenia ${experiment.name}| OptimalizeANDgetDNA</title>
-        <style>
-            .show {
-                display: none;
-            }
+<%--        <style>--%>
+<%--            .show {--%>
+<%--                display: none;--%>
+<%--            }--%>
 
-            .add {
-                display: none;
-            }
+<%--            .add {--%>
+<%--                display: none;--%>
+<%--            }--%>
 
-        </style>
+<%--        </style>--%>
 </head>
 <body>
 
@@ -178,35 +178,35 @@
 </section>
 <br>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        event.preventDefault();
-        const buttons = document.querySelectorAll(".btn");
-        const buttonsAdd = document.querySelectorAll(".btnAdd");
+<%--<script>--%>
+<%--    document.addEventListener("DOMContentLoaded", function (event) {--%>
+<%--        event.preventDefault();--%>
+<%--        const buttons = document.querySelectorAll(".btn");--%>
+<%--        const buttonsAdd = document.querySelectorAll(".btnAdd");--%>
 
-        buttons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                const div = this.parentElement.firstElementChild;
-                if (div.style.display === "block") {
-                    div.style.display = "none";
-                } else {
-                    div.style.display = "block";
-                }
-            });
-        });
+<%--        buttons.forEach(function (button) {--%>
+<%--            button.addEventListener("click", function () {--%>
+<%--                const div = this.parentElement.firstElementChild;--%>
+<%--                if (div.style.display === "block") {--%>
+<%--                    div.style.display = "none";--%>
+<%--                } else {--%>
+<%--                    div.style.display = "block";--%>
+<%--                }--%>
+<%--            });--%>
+<%--        });--%>
 
-        buttonsAdd.forEach(function (buttonAdd) {
-            buttonAdd.addEventListener("click", function () {
-                const div = this.parentElement.firstElementChild;
-                if (div.style.display === "block") {
-                    div.style.display = "none";
-                } else {
-                    div.style.display = "block";
-                }
-            });
-        });
-    });
-</script>
+<%--        buttonsAdd.forEach(function (buttonAdd) {--%>
+<%--            buttonAdd.addEventListener("click", function () {--%>
+<%--                const div = this.parentElement.firstElementChild;--%>
+<%--                if (div.style.display === "block") {--%>
+<%--                    div.style.display = "none";--%>
+<%--                } else {--%>
+<%--                    div.style.display = "block";--%>
+<%--                }--%>
+<%--            });--%>
+<%--        });--%>
+<%--    });--%>
+<%--</script>--%>
 
 </body>
 </html>

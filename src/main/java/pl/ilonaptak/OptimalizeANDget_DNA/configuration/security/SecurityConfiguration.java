@@ -33,8 +33,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .failureUrl("/login/error") // tu tarafia jak logowanie się nie powiedzie
                 .and()
-                .logout().logoutSuccessUrl("/")
-                .deleteCookies("JSESSIONID");
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/");
 
     }
 

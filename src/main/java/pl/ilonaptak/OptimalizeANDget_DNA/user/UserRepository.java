@@ -17,4 +17,6 @@ interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findAllByRole(String role);
 
+
+
 }

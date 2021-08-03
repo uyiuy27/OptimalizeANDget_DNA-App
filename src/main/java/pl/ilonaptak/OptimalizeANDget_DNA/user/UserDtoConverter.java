@@ -3,6 +3,7 @@ package pl.ilonaptak.OptimalizeANDget_DNA.user;
 public class UserDtoConverter {
 
     public static User convertUserDtoToUser(UserEditDto in, User out) {
+        out.setId(in.getId());
         out.setUsername(in.getUsername());
         out.setEmail(in.getEmail());
         out.setPosition(in.getPosition());
