@@ -31,7 +31,7 @@ public class User {
     @Column(nullable = false, unique = true, length = 40)
     String email;
 
-    @NotEmpty
+//    @NotEmpty
     @Size(min = 6)
     String password;
 

@@ -42,7 +42,8 @@ public class UserService {
         return userRepository.findAllByRole(role);
     }
 
-    public void update(User user) {
+    public void update(UserEditDto userEditDto) {
+        User user = UserDtoConverter.convertUserDtoToUser(userEditDto, userRepository.findByUsername(userEditDto.getUsername()));
         userRepository.save(user);
     }
 
@@ -53,6 +54,10 @@ public class UserService {
 
     public void delete(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    public boolean existsById(Integer id) {
+        return userRepository.existsById(id);
     }
 
 

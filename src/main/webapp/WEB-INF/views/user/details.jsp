@@ -17,9 +17,9 @@
 <button><a href="/logout">Wyloguj</a></button>
 <br>
 
-<button><a href="/user/update/${user.id}">Edytuj dane</a></button>
-<button><a href="/user/updatepass/${user.id}">Edytuj hasło</a></button>
-<button><a href="/user/delete/${user.id}">Usuń konto</a></button>
+<button><a href="/user/update/${id}">Edytuj dane</a></button>
+<button><a href="/user/updatepass/${id}">Edytuj hasło</a></button>
+<button><a href="/user/delete/${id}">Usuń konto</a></button>
 <br> <br>
 
 <button><a href="/experiment/add">Dodaj doświadczenie</a></button>

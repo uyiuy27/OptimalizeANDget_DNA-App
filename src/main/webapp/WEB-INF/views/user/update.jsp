@@ -17,7 +17,7 @@
 </h6>
 <form:form method="post" modelAttribute="user">
     <form:errors path="*"/>
-    <form:hidden path="id"/>
+    <form:hidden path="id" value="${id}"/>
     Login*: <form:input path="username"/><br>
     <form:errors path="username"/><br>
     Email*: <form:input path="email"/><br>
