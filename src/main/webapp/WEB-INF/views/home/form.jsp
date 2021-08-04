@@ -28,8 +28,8 @@
     <form:errors path="email"/><br>
     Hasło*: <form:input type="password" path="password"/><br>
     <form:errors path="password"/><br>
-<%--    Powtórz hasło: <form:input type="password" path="repeatPassword"/><br>--%>
-<%--    <form:errors path="password"/><br>--%>
+<%--    Powtórz hasło: <form:input type="password" path="confirmPass"/><br>--%>
+<%--    <form:errors path="confirmPass"/><br>--%>
     Miejsce pracy/uczelnia: <form:input path="workplace"/><br>
     <form:errors path="workplace"/><br>
     Stanowisko pracy: <form:input path="position"/><br>

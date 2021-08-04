@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -27,14 +28,7 @@ public class UserEditDto {
 
     String position;
 
-    @Override
-    public String toString() {
-        return "UserEditDto{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", workplace='" + workplace + '\'' +
-                ", position='" + position + '\'' +
-                '}';
-    }
+    String role;
+
+    LocalDate firstLoginOn;
 }

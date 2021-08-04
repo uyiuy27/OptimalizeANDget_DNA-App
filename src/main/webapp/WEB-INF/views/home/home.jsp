@@ -14,7 +14,11 @@
     <title>OptimalizeANDgetDNA</title>
 </head>
 <body>
-
+<c:choose>
+    <c:when test="${!empty admin}">
+        <button><a href="/admin/all">Użytkownicy</a></button>
+    </c:when>
+</c:choose>
 
 
 <c:choose>

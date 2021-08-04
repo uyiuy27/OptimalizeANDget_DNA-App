@@ -37,7 +37,6 @@ public class HelloController {
 
     @PostMapping("/register")
     public String add(@Valid User user, BindingResult bindingResult) {
-        System.out.println("test");
         if (bindingResult.hasErrors()) {
             return "home/form";
         }
@@ -58,6 +57,10 @@ public class HelloController {
         if (currentUser != null) {
             User user = currentUser.getUser();
             model.addAttribute("user", user);
+            System.out.println(user.getRole());
+            if(user.getRole().equals("ROLE_ADMIN")) {
+                model.addAttribute("admin", user.getRole());
+            }
         }
         return "home/home";
     }

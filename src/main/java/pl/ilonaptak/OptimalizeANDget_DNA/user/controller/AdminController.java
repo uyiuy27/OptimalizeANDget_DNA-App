@@ -18,32 +18,37 @@ public class AdminController {
 
     private final UserService userService;
 
-// to z wykładów
-//    @GetMapping
-//    @ResponseBody
-//    public String admin(@AuthenticationPrincipal CurrentUser currentUser) {
-//        User user = currentUser.getUser();
-//        return "Hello" + user.getUsername();
-//    }
+
 // TODO: ma się dodawać lista userów ale dto, również według roli wrzucamy listę dto, w widoku dodać opcję zmiany roli, banowania i usuwania userów
     @GetMapping("/users/all")
-    public String allUsers(Model model) {
-        model.addAttribute("users",userService.findAllByRole("ROLE_USER"));
-        return "admin/users";
+    public String allUsers(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        if (user.getRole().equals("ROLE_ADMIN")) {
+            model.addAttribute("users", userService.findAllDtoByRole("ROLE_USER"));
+            return "admin/users";
+        }
+        return "redirect:/logout";
     }
 
     @GetMapping("/admins/all")
-    public String allAdmins(Model model) {
-        model.addAttribute("admins",userService.findAllByRole("ROLE_ADMIN"));
-        return "admin/admins";
+    public String allAdmins(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        if (user.getRole().equals("ROLE_ADMIN")) {
+            model.addAttribute("admins",userService.findAllDtoByRole("ROLE_ADMIN"));
+            return "admin/admins";
+        }
+        return "redirect:/logout";
+
     }
 
     @GetMapping("/all")
-    public String all(Model model) {
-        model.addAttribute("allUsers",userService.findAll());
-        return "admin/all";
+    public String all(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        if (user.getRole().equals("ROLE_ADMIN")) {
+            model.addAttribute("allUsers",userService.findAllDto());
+            return "admin/all";
+        }
+        return "redirect:/logout";
     }
-
-
 
 }

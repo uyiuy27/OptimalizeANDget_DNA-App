@@ -8,10 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.UserEditDto;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.*;
 
 
 @Controller
@@ -52,16 +49,51 @@ public class UserController {
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable int id, UserEditDto user, BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser) {
         User cuUser = currentUser.getUser();
-        if (user.getId() == id) {
+        if (cuUser.getId() == id) {
             userService.update(user);
             return "redirect:/user/account/" + id;
         } else {
             return "redirect:/logout";
         }
     }
+
+    @GetMapping("/updatepass/{id}")
+    public String updatePass(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        if (userService.existsById(id)) {
+            if (user.getId() == id) {
+                model.addAttribute("userPass", new UserEditPasswordDto());
+                model.addAttribute("id", id);
+                return "user/updatepass";
+            }
+        }
+        return "redirect:/logout";
+    }
+
+    @PostMapping("/updatepass/{id}")
+    public String updateUser(@PathVariable int id, UserEditPasswordDto user, BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser) {
+        User cuUser = currentUser.getUser();
+        if (cuUser.getId() == id) {
+            userService.updatePassword(user, id);
+            return "redirect:/user/account/" + id;
+        } else {
+            return "redirect:/logout";
+        }
+    }
+
+    @GetMapping("/confirm/{id}")
+    public String confirmDelete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
+        User cuUser = currentUser.getUser();
+        if (cuUser.getId() == id) {
+            model.addAttribute("id", id);
+            return "user/confirm";
+        } else {
+            return "redirect:/logout";
+        }
+    }
+
 // TODO: jeżeli id istnieje to potwierdzamy czy to ten user i jeśli nie to wylogowujemy jak update
-    @RequestMapping("/delete/{id}")
-    @ResponseBody
+    @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         if (user.getId() == id) {
