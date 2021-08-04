@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<UserEditDto> findAllDto() {
+        List<User> users = userRepository.findAll();
+        List<UserEditDto> userEditDtos = new ArrayList<>();
+        for (User user : users) {
+            userEditDtos.add(UserDtoConverter.convertUserToUserDto(user, new UserEditDto()));
+        }
+        return userEditDtos;
+    }
+
     public User findById(Integer id) {
         return userRepository.getById(id);
     }
@@ -34,6 +44,11 @@ public class UserService {
         return UserDtoConverter.convertUserToUserDto(user.orElse(null), new UserEditDto());
     }
 
+//    public UserEditPasswordDto findUserPasswordDtoByID(Integer id) {
+//        User user = userRepository.getById(id);
+//        return UserDtoConverter.convertUserPasswordToUserPasswordDto(user, new UserEditPasswordDto());
+//    }
+
     public User findByUserName(String login) {
         return userRepository.findByUsername(login);
     }
@@ -42,15 +57,30 @@ public class UserService {
         return userRepository.findAllByRole(role);
     }
 
+    public List<UserEditDto> findAllDtoByRole(String role) {
+        List<User> users = userRepository.findAllByRole(role);
+        List<UserEditDto> userEditDtos = new ArrayList<>();
+        for (User user : users) {
+            userEditDtos.add(UserDtoConverter.convertUserToUserDto(user, new UserEditDto()));
+        }
+        return userEditDtos;
+    }
+
     public void update(UserEditDto userEditDto) {
         User user = UserDtoConverter.convertUserDtoToUser(userEditDto, userRepository.findByUsername(userEditDto.getUsername()));
         userRepository.save(user);
     }
 
-    void updatePassword(User user, String password) {
-        user.setPassword(passwordEncoder.encode(password));
+    public void updatePassword(UserEditPasswordDto userEditPasswordDto, Integer id) {
+        User user = UserDtoConverter.convertUserDtoPasswordToUserPassword(userEditPasswordDto, userRepository.getById(id));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+
+//    void updatePassword(User user, String password) {
+//        user.setPassword(passwordEncoder.encode(password));
+//        userRepository.save(user);
+//    }
 
     public void delete(Integer id) {
         userRepository.deleteById(id);
@@ -58,6 +88,10 @@ public class UserService {
 
     public boolean existsById(Integer id) {
         return userRepository.existsById(id);
+    }
+
+    public boolean existsByRole(String role) {
+        return userRepository.existsByRole(role);
     }
 
 

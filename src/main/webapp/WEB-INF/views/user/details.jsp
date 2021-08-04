@@ -19,7 +19,7 @@
 
 <button><a href="/user/update/${id}">Edytuj dane</a></button>
 <button><a href="/user/updatepass/${id}">Edytuj hasło</a></button>
-<button><a href="/user/delete/${id}">Usuń konto</a></button>
+<button><a href="/user/confirm/${id}">Usuń konto</a></button>
 <br> <br>
 
 <button><a href="/experiment/add">Dodaj doświadczenie</a></button>

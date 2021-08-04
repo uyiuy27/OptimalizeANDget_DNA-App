@@ -12,10 +12,12 @@ public class UserDtoConverter {
     }
 
     public static UserEditDto convertUserToUserDto(User in, UserEditDto out) {
+        out.setId(in.getId());
         out.setUsername(in.getUsername());
         out.setEmail(in.getEmail());
         out.setPosition(in.getPosition());
         out.setWorkplace(in.getWorkplace());
+        out.setRole(in.getRole());
         return out;
     }
 
@@ -28,5 +30,7 @@ public class UserDtoConverter {
         out.setPassword(in.getPassword());
         return out;
     }
+
+
 
 }

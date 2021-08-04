@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -31,9 +28,14 @@ public class User {
     @Column(nullable = false, unique = true, length = 40)
     String email;
 
-//    @NotEmpty
+    @NotEmpty
     @Size(min = 6)
     String password;
+
+//    @NotEmpty
+//    @Size(min=6)
+//    @Transient
+//    String confirmPass;
 
     @Size(max = 120)
     String workplace;
@@ -54,5 +56,10 @@ public class User {
     public void prePersist() {
         firstLoginOn = LocalDate.now();
     }
+//
+//    @AssertTrue(message = "hasła muszą być takie same")
+//    public boolean isValid() {
+//        return this.password.equals(this.confirmPass);
+//    }
 
 }
