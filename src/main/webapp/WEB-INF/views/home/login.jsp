@@ -19,5 +19,8 @@
 <%--    crf to elemenet ukryty, zawiera automatycznie wygenerowany klucz--%>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
+<br>
+<button><a href="/"><spring:message code="home.home"/></a></button>
+<br>
 </body>
 </html>

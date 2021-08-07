@@ -73,8 +73,22 @@ public class ExperimentService {
         }
     }
 
-    void delete(Integer id) {
-        experimentRepository.deleteById(id);
+    void delete(Integer experimentId) {
+        List<Accessory> accessories = accessoryService.findAllByExperimentId(experimentId);
+        for (Accessory accessory : accessories) {
+            accessoryService.deleteById(accessory.getId());
+        }
+
+        List<Ingredient> ingredients = ingredientService.findAllByExperimentId(experimentId);
+        for (Ingredient ingredient : ingredients) {
+            ingredientService.deleteById(ingredient.getId());
+        }
+
+        List<Reaction> reactions = reactionService.findAllByExperimentId(experimentId);
+        for (Reaction reaction : reactions) {
+            reactionService.deleteById(reaction.getId());
+        }
+        experimentRepository.deleteById(experimentId);
     }
 
 

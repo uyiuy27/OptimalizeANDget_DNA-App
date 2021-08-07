@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ilona
@@ -31,10 +32,15 @@
     <form:errors path="difficulty"/><br>
     <spring:message code="experiment.time"/>: <form:input path="plannedDuration"/><br>
     <form:errors path="plannedDuration"/><br>
+    <c:choose>
+    <c:when test="${!empty copy}">
     <spring:message code="experiment.visibility"/>*: <br>
     <spring:message code="experiment.visibility.public"/>: <form:radiobutton path="visibility" value="public"/> <br>
     <spring:message code="experiment.visibility.private"/>: <form:radiobutton path="visibility" value="private"/>
+    </c:when>
+    </c:choose>
     <input type="submit">
 </form:form>
+<button><a href="/user/account/${userId}"><spring:message code="user.back"/></a></button>
 </body>
 </html>

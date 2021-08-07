@@ -25,6 +25,17 @@
 <%--        </style>--%>
 </head>
 <body>
+<button><a href="/logout"><spring:message code="user.logout"/></a></button>
+<br>
+<button><a href="/"><spring:message code="home.home"/></a></button>
+<br>
+<c:choose>
+    <c:when test="${!empty user}">
+        <button><a href="/experiment/update/${experiment.id}"><spring:message code="experiment.edit"/></a></button>
+        <button><a href="/experiment/confirm/${experiment.id}"><spring:message code="experiment.delete"/></a></button>
+        <button><a href="/user/account/${user.id}"><spring:message code="user.back"/></a></button>
+    </c:when>
+</c:choose>
 
 <h4><b><spring:message code="experiment.name"/> </b></h4>
 <h5>${experiment.name}</h5>
@@ -42,7 +53,7 @@
 <h6>${experiment.user.username}</h6>
 
 <c:choose>
-    <c:when test="${empty user}">
+    <c:when test="${empty cantAdd}">
         <button><a href="/experiment/addtoexperiments/${experiment.id}"><spring:message code="experiment.add.toMine"/> </a></button>
     </c:when>
 </c:choose>
@@ -69,7 +80,7 @@
         <c:choose>
             <c:when test="${!empty user}">
                 <section>
-                    <button class="btnAdd"><spring:message code="experiment.add.accessory"/> </button>
+                    <spring:message code="experiment.add.accessory"/> <br>
                     <div class="add">
                         <spring:message code="form.required"/>  <br>
                         <form:form action="/accessory/add/${experiment.id}" method="post" modelAttribute="accessory">
@@ -113,7 +124,7 @@
         <c:choose>
             <c:when test="${!empty user}">
                 <section>
-                    <button class="btnAdd"><spring:message code="experiment.add.ingredients"/> </button>
+                    <spring:message code="experiment.add.ingredients"/> <br>
                     <div class="add">
                         <spring:message code="form.required"/>  <br>
                         <form:form action="/ingredient/add/${experiment.id}" method="post" modelAttribute="ingredient">
@@ -163,7 +174,7 @@
         <c:choose>
             <c:when test="${!empty user}">
                 <section>
-                    <button class="btnAdd"><spring:message code="experiment.add.reaction"/></button>
+                    <spring:message code="experiment.add.reaction"/> <br>
                 <div class="add">
                     <spring:message code="form.required"/><br>
                     <form:form action="/reaction/add/${experiment.id}" method="post" modelAttribute="reaction">

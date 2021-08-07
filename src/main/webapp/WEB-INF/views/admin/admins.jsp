@@ -14,6 +14,12 @@
     <title><spring:message code="admin.title"/> | OptimalizeANDgetDNA</title>
 </head>
 <body>
+
+<button><a href="/logout"><spring:message code="user.logout"/></a></button>
+<br>
+<button><a href="/"><spring:message code="home.home"/></a></button>
+<br>
+
 <button><a href="/admin/all"><spring:message code="admin.button.all"/></a></button>
 <button><a href="/admin/users/all"><spring:message code="admin.button.users"/></a></button>
 <button><a href="/admin/admins/all"><spring:message code="admin.button.admins"/></a></button>
