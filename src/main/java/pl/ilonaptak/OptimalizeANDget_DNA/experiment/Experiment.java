@@ -1,6 +1,8 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.experiment;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = Experiment.TABLE_NAME)
 public class Experiment {
@@ -18,7 +22,7 @@ public class Experiment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
 
     @ManyToOne
     User user;
@@ -32,11 +36,11 @@ public class Experiment {
 
     LocalDateTime createdOn;
 
-    boolean done;
+//    boolean done;
 
     String plannedDuration;
 
-    String realDuration;
+//    String realDuration;
 
     String difficulty;
 
@@ -47,9 +51,15 @@ public class Experiment {
 
     String resource;
 
+    String addedBy;
+
     @PrePersist
     public void prePersist() {
         createdOn = LocalDateTime.now();
+    }
+
+    public Experiment clone() {
+        return new Experiment(null, user, name, description, createdOn, plannedDuration, difficulty, visibility, author, resource, addedBy);
     }
 
 

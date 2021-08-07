@@ -58,32 +58,34 @@ public class ReactionController {
 // TODO wymyślić jak ogarnąć update
 
 
-//    @GetMapping("/update/{id}")
-//    public String update(@PathVariable int id, Model model) {
-//        model.addAttribute("reaction", reactionService.getById(id));
-//        return "reaction/form";
-//    }
-//
-//
-//    @PostMapping("/update/{id}")
-//    @ResponseBody
-//    public String update(@PathVariable int id, @Valid Reaction reaction, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "reaction/form";
-//        }
-//        reactionService.save(reaction);
-//        return "redirect:user/experiment/all";
-//    }
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable int id, Model model) {
+
+        model.addAttribute("reaction", reactionService.getById(id));
+        return "reaction/form";
+    }
+
+
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable int id, @Valid Reaction reaction, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "reaction/form";
+        }
+        int experimentId = reactionService.getById(id).getExperiment().getId();
+        reaction.setExperiment(experimentService.findById(experimentId));
+        reactionService.save(reaction);
+        return "redirect:/experiment/details/" + experimentId;
+    }
 
     @RequestMapping("/delete/{id}")
-    @ResponseBody
     public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         User userExperiment = reactionService.getById(id).getExperiment().getUser();
+        int experimentId = reactionService.getById(id).getExperiment().getId();
         if (user.getId() == userExperiment.getId()) {
             reactionService.deleteById(id);
         }
-        return "redirect:/user/account/"+user.getId();
+        return "redirect:/experiment/details/" + experimentId;
     }
 
 

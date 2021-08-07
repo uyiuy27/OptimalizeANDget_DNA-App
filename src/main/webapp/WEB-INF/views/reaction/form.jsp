@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: ilona
@@ -13,16 +14,14 @@
 </head>
 <body>
 Pola oznaczone * są wymagane <br>
-<form:form method="post" modelAttribute="accessory">
-    <form:errors path="*"/>
+<form:form method="post" modelAttribute="reaction">
     <%--    <form:errors path="*"/>--%>
     <form:hidden path="id"/>
-    Nazwa*: <form:input path="name"/><br>
-    <form:errors path="name"/><br>
-    Opis: <form:input path="quantity"/><br>
-    <form:errors path="quantity"/><br>
+    <spring:message code="experiment.description"/>*: <form:input path="description"/><br>
+    <form:errors path="description"/><br>
+    <spring:message code="experiment.reaction.time"/>: <form:input path="time"/><br>
+    <form:errors path="time"/><br>
     <input type="submit">
 </form:form>
-<%--TODO: jak się uda niech dodaje się po kilka na raz tych akcesorióœ JS?  i dokończyć formularz--%>
 </body>
 </html>

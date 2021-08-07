@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: ilona
@@ -9,22 +10,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Edytuj konto | OptimalizeANDgetDNA</title>
+    <title><spring:message code="user.edit"/> | OptimalizeANDgetDNA</title>
 </head>
 <body>
 <h6>
-    <p>Pola oznaczone * są wymagane</p>
+    <p><spring:message code="form.required"/></p>
 </h6>
 <form:form method="post" modelAttribute="user">
     <form:errors path="*"/>
     <form:hidden path="id" value="${id}"/>
-    Login*: <form:input path="username"/><br>
+    <spring:message code="user.username"/>*: <form:input path="username"/><br>
     <form:errors path="username"/><br>
-    Email*: <form:input path="email"/><br>
+    <spring:message code="admin.email"/>*: <form:input path="email"/><br>
     <form:errors path="email"/><br>
-    Miejsce pracy/uczelnia: <form:input path="workplace"/><br>
+    <spring:message code="admin.work"/>: <form:input path="workplace"/><br>
     <form:errors path="workplace"/><br>
-    Stanowisko pracy: <form:input path="position"/><br>
+    <spring:message code="admin.position"/>: <form:input path="position"/><br>
     <form:errors path="position"/><br>
     <input type="submit">
 </form:form>
