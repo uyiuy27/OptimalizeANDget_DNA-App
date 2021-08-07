@@ -55,12 +55,12 @@ public class ReactionController {
         return "reaction/all";
     }
 
-// TODO wymyślić jak ogarnąć update
-
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable int id, Model model) {
-
+        Reaction reaction = reactionService.getById(id);
+        int experimentId = reaction.getExperiment().getId();
+        model.addAttribute("experimentId", experimentId);
         model.addAttribute("reaction", reactionService.getById(id));
         return "reaction/form";
     }

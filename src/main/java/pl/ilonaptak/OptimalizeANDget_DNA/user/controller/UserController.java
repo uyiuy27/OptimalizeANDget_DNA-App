@@ -92,7 +92,6 @@ public class UserController {
         }
     }
 
-// TODO: jeżeli id istnieje to potwierdzamy czy to ten user i jeśli nie to wylogowujemy jak update
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();

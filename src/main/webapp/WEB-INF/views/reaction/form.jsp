@@ -10,10 +10,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Dodaj akcesoria | OptimalizeANDgetDNA</title>
+    <title><spring:message code="experiment.add.accessory"/> | OptimalizeANDgetDNA</title>
 </head>
 <body>
-Pola oznaczone * są wymagane <br>
+<spring:message code="form.required"/> <br>
 <form:form method="post" modelAttribute="reaction">
     <%--    <form:errors path="*"/>--%>
     <form:hidden path="id"/>
@@ -23,5 +23,8 @@ Pola oznaczone * są wymagane <br>
     <form:errors path="time"/><br>
     <input type="submit">
 </form:form>
+
+<button><a href="/experiment/details/${experimentId}"><spring:message code="user.back"/></a></button>
+
 </body>
 </html>

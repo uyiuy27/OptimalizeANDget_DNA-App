@@ -17,6 +17,8 @@
 
 <button><a href="/logout"><spring:message code="user.logout"/></a></button>
 <br>
+<button><a href="/"><spring:message code="home.home"/></a></button>
+<br>
 
 <button><a href="/user/update/${id}"><spring:message code="user.edit.data"/></a></button>
 <button><a href="/user/updatepass/${id}"><spring:message code="user.edit.password"/></a></button>
@@ -48,7 +50,7 @@
                     <td>
                         <button><a href="/experiment/details/${experiment.id}"><spring:message code="experiment.details"/></a></button>
                         <button><a href="/experiment/update/${experiment.id}"><spring:message code="experiment.edit"/></a></button>
-                        <button><a href="/experiment/delete/${experiment.id}"><spring:message code="experiment.delete"/></a></button>
+                        <button><a href="/experiment/confirm/${experiment.id}"><spring:message code="experiment.delete"/></a></button>
                     </td>
                 </tr>
                 </tbody>

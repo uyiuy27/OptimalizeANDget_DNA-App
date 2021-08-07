@@ -17,6 +17,7 @@ import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/experiment")
@@ -32,8 +33,10 @@ public class ExperimentController {
 
     @GetMapping("/add")
 //    @ResponseBody
-    public String add(Model model) {
+    public String add(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
         model.addAttribute("experiment", new Experiment());
+        model.addAttribute("userId", user.getId());
         return "experiment/form";
     }
 
@@ -50,8 +53,14 @@ public class ExperimentController {
     }
 
     @GetMapping("/update/{id}")
-    public String update(@PathVariable int id, Model model) {
+    public String update(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        Experiment experiment = experimentService.findById(id);
+        if (experiment.getUser().getUsername().equals(experiment.getAddedBy())) {
+            model.addAttribute("copy", "has not been copied");
+        }
         model.addAttribute("experiment", experimentService.findById(id));
+        model.addAttribute("userId", user.getId());
         return "/experiment/form";
     }
 
@@ -71,9 +80,21 @@ public class ExperimentController {
         return "redirect:/user/account/"+user.getId();
     }
 
+    @GetMapping("/confirm/{id}")
+    public String confirmDelete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
+        User cuUser = currentUser.getUser();
+        User userExperiment = experimentService.findById(id).getUser();
+        if (cuUser.getId() == userExperiment.getId()) {
+            model.addAttribute("id", id);
+            model.addAttribute("userId", cuUser.getId());
+            return "experiment/confirm";
+        } else {
+            return "redirect:/logout";
+        }
+    }
 
-    @RequestMapping("/delete/{id}")
-    @ResponseBody
+
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         User userExperiment = experimentService.findById(id).getUser();
@@ -98,6 +119,12 @@ public class ExperimentController {
             model.addAttribute("reaction", new Reaction());
             if (user.getId() == userExperiment.getId()) {
                 model.addAttribute("user", user);
+            }
+            List<Experiment> experimentList = experimentService.findAllByUserId(user.getId());
+            for (Experiment experiment : experimentList) {
+                if (user.getId() == userExperiment.getId() || experimentService.findById(id).getName().equals(experiment.getName())) {
+                    model.addAttribute("cantAdd", "cantAdd");
+                }
             }
             return "experiment/details";
         }

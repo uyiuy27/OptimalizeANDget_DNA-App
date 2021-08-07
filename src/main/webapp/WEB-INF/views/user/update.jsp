@@ -29,5 +29,8 @@
     <form:errors path="position"/><br>
     <input type="submit">
 </form:form>
+<br>
+<button><a href="/user/account/${id}"><spring:message code="user.back"/></a></button>
+<br>
 </body>
 </html>
