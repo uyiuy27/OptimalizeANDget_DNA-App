@@ -16,7 +16,7 @@
 <body>
 <c:choose>
     <c:when test="${!empty admin}">
-        <button><a href="/admin/all">Użytkownicy</a></button>
+        <button><a href="/admin/all"><spring:message code="admin.users"/></a></button>
     </c:when>
 </c:choose>
 
@@ -24,41 +24,41 @@
 <c:choose>
     <c:when test="${!empty user}">
         <spring:message code="home.hello"/> ${user.username}! <br>
-        <button><a href="/user/account/${user.id}">Szczegóły konta</a></button>
-        <button><a href="http://localhost:8080/logout">Wyloguj</a></button>
+        <button><a href="/user/account/${user.id}"><spring:message code="user.account"/></a></button>
+        <button><a href="http://localhost:8080/logout"><spring:message code="user.logout"/></a></button>
     </c:when>
     <c:otherwise>
         <spring:message code="home.hello"/>!
-        <button><a href="http://localhost:8080/login">Zaloguj</a></button>
-        <button><a href="http://localhost:8080/register">Zarejestruj</a></button>
+        <button><a href="http://localhost:8080/login"><spring:message code="user.login"/></a></button>
+        <button><a href="http://localhost:8080/register"><spring:message code="user.register"/></a></button>
     </c:otherwise>
 </c:choose>
-<button><a href="/experiment/add">Dodaj doświadczenie</a></button>
+<button><a href="/experiment/add"><spring:message code="experiment.add"/></a></button>
 
 
 <br> <br>
-Jeżeli oznaczysz widoczność swojego doświadczenia jako publiczne, ma szansę pojawić się na naszej głównej stronie! <br>
+<spring:message code="home.info"/> <br>
 
 <c:choose>
     <c:when test="${!empty experiments}">
-        Zaloguj się, żeby zobaczyć szczegóły. <br>
+        <spring:message code="home.info.login"/> <br>
         <table border="1">
             <thead>
             <tr>
-                <td>Autor oryginalnej metody:</td>
-                <td>Trudność wykonania:</td>
-                <td>Nazwa</td>
-                <td>Więcej</td>
+                <td><spring:message code="experiment.name"/></td>
+                <td><spring:message code="experiment.originalAuthor"/></td>
+                <td><spring:message code="experiment.difficulty"/></td>
+                <td><spring:message code="experiment.more"/></td>
             </tr>
             </thead>
             <c:forEach items="${experiments}" var="experiment">
                 <tbody>
                 <tr>
+                    <td>${experiment.name}</td>
                     <td>${experiment.author}</td>
                     <td>${experiment.difficulty}</td>
-                    <td>${experiment.name}</td>
                     <td>
-                        <button><a href="/experiment/details/${experiment.id}">Szczegóły</a></button>
+                        <button><a href="/experiment/details/${experiment.id}"><spring:message code="experiment.details"/></a></button>
                     </td>
                 </tr>
                 </tbody>

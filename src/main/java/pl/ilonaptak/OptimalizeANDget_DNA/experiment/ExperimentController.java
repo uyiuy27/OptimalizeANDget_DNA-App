@@ -104,6 +104,13 @@ public class ExperimentController {
 
         return "redirect:/";
     }
+
+    @GetMapping("addtoexperiments/{id}")
+    public String addToUserExperiments(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        experimentService.saveByOtherUser(id, user.getId());
+        return "redirect:/user/account/" + user.getId();
+    }
 }
 
 

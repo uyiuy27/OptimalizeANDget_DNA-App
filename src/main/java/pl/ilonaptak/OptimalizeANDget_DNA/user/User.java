@@ -32,7 +32,7 @@ public class User {
     @Size(min = 6)
     String password;
 
-//    @NotEmpty
+//    @NotNull(message = "nie pasują")
 //    @Size(min=6)
 //    @Transient
 //    String confirmPass;
@@ -56,6 +56,25 @@ public class User {
     public void prePersist() {
         firstLoginOn = LocalDate.now();
     }
+
+//    public void setPassword(String password) {
+//        this.password = password;
+//        checkPassword();
+//    }
+//
+//    public void setConfirmPass(String confirmPass) {
+//        this.confirmPass = confirmPass;
+//        checkPassword();
+//    }
+//
+//    private void checkPassword() {
+//        if(this.password == null || this.confirmPass == null) {
+//            return;
+//        } else if (!this.password.equals(confirmPass)) {
+//            this.confirmPass = null;
+//        }
+//    }
+
 //
 //    @AssertTrue(message = "hasła muszą być takie same")
 //    public boolean isValid() {

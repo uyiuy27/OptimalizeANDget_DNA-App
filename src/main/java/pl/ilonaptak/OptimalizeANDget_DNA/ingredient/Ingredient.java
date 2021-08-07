@@ -1,14 +1,17 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.ingredient;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import pl.ilonaptak.OptimalizeANDget_DNA.accessory.Accessory;
+import lombok.NoArgsConstructor;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = Ingredient.TABLE_NAME)
 public class Ingredient {
@@ -17,7 +20,7 @@ public class Ingredient {
 
     @Id
     @GeneratedValue
-    int id;
+    Integer id;
 
     @ManyToOne
     Experiment experiment;
@@ -31,8 +34,9 @@ public class Ingredient {
 
     boolean dangerous;
 
-
-
+    public Ingredient clone() {
+        return new Ingredient(null, null, name, concentration, quantity, dangerous);
+    }
 
 
 }

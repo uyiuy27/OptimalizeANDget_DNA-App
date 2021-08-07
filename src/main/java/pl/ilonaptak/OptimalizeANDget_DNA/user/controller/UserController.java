@@ -84,7 +84,7 @@ public class UserController {
     @GetMapping("/confirm/{id}")
     public String confirmDelete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         User cuUser = currentUser.getUser();
-        if (cuUser.getId() == id) {
+        if (cuUser.getId() == id || cuUser.getRole().equals("ROLE_ADMIN")) {
             model.addAttribute("id", id);
             return "user/confirm";
         } else {
@@ -94,12 +94,22 @@ public class UserController {
 
 // TODO: jeżeli id istnieje to potwierdzamy czy to ten user i jeśli nie to wylogowujemy jak update
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
+    public String deleteUser(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
-        if (user.getId() == id) {
+        if (user.getId() == id && !user.getRole().equals("ROLE_ADMIN")) {
             userService.delete(id);
+            return "redirect:/logout";
+        } else if (user.getRole().equals("ROLE_ADMIN")) {
+            if (userService.findAllByRole("ROLE_ADMIN").size() > 1 || !userService.findById(id).getRole().equals("ROLE_ADMIN")) {
+                userService.delete(id);
+                return "redirect:/admin/all";
+            } else {
+                model.addAttribute("notDelete", "can't delete user");
+                return "redirect:/admin/all";
+            }
+        } else {
+            return "redirect:/logout";
         }
-        return "redirect:/logout";
     }
 
 

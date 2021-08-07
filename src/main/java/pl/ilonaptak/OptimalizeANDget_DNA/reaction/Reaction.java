@@ -1,6 +1,9 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.reaction;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import pl.ilonaptak.OptimalizeANDget_DNA.accessory.Accessory;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
 
 import javax.persistence.*;
@@ -8,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import java.time.Duration;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = Reaction.TABLE_NAME)
 public class Reaction {
@@ -17,7 +22,7 @@ public class Reaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
 
     @ManyToOne
     Experiment experiment;
@@ -27,6 +32,9 @@ public class Reaction {
 
     String time;
 
+    public Reaction clone() {
+        return new Reaction(null, null, description, time);
+    }
 
 
 

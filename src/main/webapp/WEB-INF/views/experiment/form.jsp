@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: ilona
@@ -9,30 +10,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Dodaj doświadczenie | OptimalizeANDgetDNA</title>
+    <title><spring:message code="experiment.add"/> | OptimalizeANDgetDNA</title>
 </head>
 <body>
-Pola oznaczone * są wymagane <br>
+<spring:message code="form.required"/> <br>
 <form:form method="post" modelAttribute="experiment">
     <form:errors path="*"/>
 <%--    <form:errors path="*"/>--%>
     <form:hidden path="id"/>
 <%--    <form:hidden path="currentUserId"/>--%>
-    Nazwa*: <form:input path="name"/><br>
+    <spring:message code="experiment.name"/>*: <form:input path="name"/><br>
     <form:errors path="name"/><br>
-    Opis*: <form:input path="description"/><br>
+    <spring:message code="experiment.description"/>*: <form:input path="description"/><br>
     <form:errors path="description"/><br>
-    Autor oryginalnej metody: <form:input path="author"/><br>
+    <spring:message code="experiment.originalAuthor"/>: <form:input path="author"/><br>
     <form:errors path="author"/><br>
-    Żródło (artykuł/książka): <form:input path="resource"/><br>
+    <spring:message code="experiment.resource"/>: <form:input path="resource"/><br>
     <form:errors path="resource"/><br>
-    Trudność: <form:input path="difficulty"/><br>
+    <spring:message code="experiment.difficulty"/>: <form:input path="difficulty"/><br>
     <form:errors path="difficulty"/><br>
-    Planowany czas: <form:input path="plannedDuration"/><br>
+    <spring:message code="experiment.time"/>: <form:input path="plannedDuration"/><br>
     <form:errors path="plannedDuration"/><br>
-    Widoczność*: <br>
-    Publiczna: <form:radiobutton path="visibility" value="public"/> <br>
-    Prywatna: <form:radiobutton path="visibility" value="private"/>
+    <spring:message code="experiment.visibility"/>*: <br>
+    <spring:message code="experiment.visibility.public"/>: <form:radiobutton path="visibility" value="public"/> <br>
+    <spring:message code="experiment.visibility.private"/>: <form:radiobutton path="visibility" value="private"/>
     <input type="submit">
 </form:form>
 </body>

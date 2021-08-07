@@ -1,12 +1,16 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.accessory;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = Accessory.TABLE_NAME)
 public class Accessory {
@@ -14,7 +18,7 @@ public class Accessory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
 
     @ManyToOne
     Experiment experiment;
@@ -24,7 +28,9 @@ public class Accessory {
 
     int quantity;
 
-
+    public Accessory clone() {
+        return new Accessory(null, null, name, quantity);
+    }
 
 
 }

@@ -19,6 +19,12 @@ public class UserService {
     public void save(User user) {
         user.setRole("ROLE_USER");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setConfirmPass(passwordEncoder.encode(user.getConfirmPass()));
+        userRepository.save(user);
+    }
+
+    public void saveRole(User user, String role) {
+        user.setRole(role);
         userRepository.save(user);
     }
 

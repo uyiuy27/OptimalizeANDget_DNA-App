@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: ilona
@@ -8,11 +9,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Usuń konto | OptimalizeANDgetDNA</title>
+    <title><spring:message code="user.delete"/> | OptimalizeANDgetDNA</title>
 </head>
 <body>
-Czy na pewno chcesz usunąć konto?
-<button><a href="/user/account/${id}">Wstecz</a></button>
-<button><a href="/user/delete/${id}">Usuń</a></button>
+<spring:message code="user.delete.message"/>
+<button><a href="/user/account/${id}"><spring:message code="user.back"/></a></button>
+<button><a href="/user/delete/${id}"><spring:message code="user.delete"/></a></button>
 </body>
 </html>
