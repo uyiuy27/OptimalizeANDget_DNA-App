@@ -27,8 +27,12 @@ public class UserController {
                 model.addAttribute("userExperiments", experimentService.findAllByUserId(id));
                 model.addAttribute("user", userService.findUserDtoById(id));
                 model.addAttribute("id", id);
+                if (user.getRole().equals("ROLE_ADMIN")) {
+                    model.addAttribute("admin", user.getRole());
+                }
                 return "user/details";
             }
+
         }
         return "redirect:/logout";
     }
