@@ -1,16 +1,17 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: ilona
-  Date: 04.08.2021
-  Time: 16:49
+  Date: 11.08.2021
+  Time: 21:17
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><spring:message code="user.delete"/> | OptimalizeANDgetDNA</title>
+    <title>OptimalizeANDgetDNA</title>
     <link href="<c:url value="/theme/css/sb-admin-2.css"/>" rel="stylesheet">
     <link href="<c:url value="/theme/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet">
 </head>
@@ -23,12 +24,12 @@
 
 
         <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="/user/account/${userId}">
+           href="/">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">
-                <spring:message code="home.hello"/> ${user.username}!
+                <spring:message code="home.hello"/>!
             </div>
         </a>
 
@@ -37,26 +38,16 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-
-        <li class="nav-item active">
-            <a class="nav-link" href="/user/account/${user.id}">
-                <span><spring:message code="user.account"/></span>
-            </a>
-        </li>
         <li class="nav-item active">
             <a class="nav-link" href="http://localhost:8080/">
                 <span><spring:message code="home.home"/></span>
             </a>
         </li>
-        <c:choose>
-            <c:when test="${!empty admin}">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/admin/all">
-                        <span><spring:message code="admin.users"/></span>
-                    </a>
-                </li>
-            </c:when>
-        </c:choose>
+        <li class="nav-item active">
+            <a class="nav-link" href="http://localhost:8080/register">
+                <span><spring:message code="user.register"/></span>
+            </a>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -115,72 +106,71 @@
                 </ul>
 
             </nav>
-            <div class="container-fluid">
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800"><spring:message
-                            code="user.delete"/></h1>
-                    <c:choose>
-                        <c:when test="${!empty user}">
-                            <a href="http://localhost:8080/logout"
-                               class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><spring:message
-                                    code="user.logout"/></a>
-                        </c:when>
-                    </c:choose>
+<%--            <div class="container-fluid">--%>
+<%--                <div class="d-sm-flex align-items-center justify-content-between mb-4">--%>
+<%--                    <h1 class="h3 mb-0 text-gray-800"><spring:message--%>
+<%--                            code="experiment.delete"/></h1>--%>
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${!empty user}">--%>
+<%--                            <a href="http://localhost:8080/logout"--%>
+<%--                               class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><spring:message--%>
+<%--                                    code="user.logout"/></a>--%>
+<%--                        </c:when>--%>
+<%--                    </c:choose>--%>
 
-                </div>
-            </div>
+<%--                </div>--%>
+<%--            </div>--%>
             <!-- End of Topbar -->
-<!-- Begin Page Content -->
-<div class="container-fluid">
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-    <!-- Page Heading -->
-<%--    <div class="d-sm-flex align-items-center justify-content-between mb-4">--%>
-<%--        <h1 class="h3 mb-0 text-gray-800">Cards</h1>--%>
-<%--    </div>--%>
+                <!-- Page Heading -->
+                <%--    <div class="d-sm-flex align-items-center justify-content-between mb-4">--%>
+                <%--        <h1 class="h3 mb-0 text-gray-800">Cards</h1>--%>
+                <%--    </div>--%>
 
-    <div class="row">
+                <div class="row">
 
-        <div class="col-lg-6">
+                    <div class="col-lg-6">
+
+                        <!-- Basic Card Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"><spring:message code="user.login.error"/></h6>
+                            </div>
+                            <div class="card-body">
+                                <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="http://localhost:8080/login"><spring:message code="user.login"/></a>
+
+                            </div>
+                        </div>
 
 
-            <!-- Basic Card Example -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"><spring:message code="user.delete.message"/></h6>
+
+
+
+                    </div>
+
+
                 </div>
-                <div class="card-body">
-                    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="/user/account/${id}"><spring:message code="user.back"/></a> <br><br>
-                    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="/user/delete/${id}"><spring:message code="user.delete"/></a>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2019</span>
                 </div>
             </div>
-
-
-
-
-
-        </div>
-
+        </footer>
+        <!-- End of Footer -->
 
     </div>
-
-</div>
-<!-- /.container-fluid -->
-
-</div>
-<!-- End of Main Content -->
-
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-        </div>
-    </div>
-</footer>
-<!-- End of Footer -->
-
-</div>
-<!-- End of Content Wrapper -->
+    <!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->

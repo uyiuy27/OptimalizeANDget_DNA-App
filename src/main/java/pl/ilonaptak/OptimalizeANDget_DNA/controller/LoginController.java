@@ -26,9 +26,8 @@ public class LoginController {
 
 
     @GetMapping("/login/error")
-    @ResponseBody
     public String loginError() {
-        return "logowanie nie poszło najlepiej :<";
+        return "home/loginError";
     }
 
     @GetMapping("/logout")

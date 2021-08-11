@@ -37,6 +37,14 @@ public class ExperimentController {
         User user = currentUser.getUser();
         model.addAttribute("experiment", new Experiment());
         model.addAttribute("userId", user.getId());
+        model.addAttribute("userName", user.getUsername());
+        boolean isCopied = false;
+        if (!isCopied) {
+            model.addAttribute("copy", "has not been copied");
+        }
+        if(user.getRole().equals("ROLE_ADMIN")) {
+            model.addAttribute("admin", user.getRole());
+        }
         return "experiment/form";
     }
 
@@ -61,6 +69,7 @@ public class ExperimentController {
         }
         model.addAttribute("experiment", experimentService.findById(id));
         model.addAttribute("userId", user.getId());
+        model.addAttribute("userName", user.getUsername());
         return "/experiment/form";
     }
 
@@ -87,6 +96,7 @@ public class ExperimentController {
         if (cuUser.getId() == userExperiment.getId()) {
             model.addAttribute("id", id);
             model.addAttribute("userId", cuUser.getId());
+            model.addAttribute("userName", cuUser.getUsername());
             return "experiment/confirm";
         } else {
             return "redirect:/logout";

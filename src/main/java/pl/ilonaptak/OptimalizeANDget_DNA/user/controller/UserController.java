@@ -89,6 +89,10 @@ public class UserController {
     public String confirmDelete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         User cuUser = currentUser.getUser();
         if (cuUser.getId() == id || cuUser.getRole().equals("ROLE_ADMIN")) {
+            if(cuUser.getRole().equals("ROLE_ADMIN")) {
+                model.addAttribute("admin", cuUser.getRole());
+            }
+            model.addAttribute("user", cuUser);
             model.addAttribute("id", id);
             return "user/confirm";
         } else {

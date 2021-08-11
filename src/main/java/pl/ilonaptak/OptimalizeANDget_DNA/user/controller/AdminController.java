@@ -25,6 +25,7 @@ public class AdminController {
         User user = currentUser.getUser();
         if (user.getRole().equals("ROLE_ADMIN")) {
             model.addAttribute("users", userService.findAllDtoByRole("ROLE_USER"));
+            model.addAttribute("user", user);
             return "admin/users";
         }
         return "redirect:/logout";
@@ -35,6 +36,7 @@ public class AdminController {
         User user = currentUser.getUser();
         if (user.getRole().equals("ROLE_ADMIN")) {
             model.addAttribute("admins",userService.findAllDtoByRole("ROLE_ADMIN"));
+            model.addAttribute("user", user);
             return "admin/admins";
         }
         return "redirect:/logout";
@@ -46,6 +48,7 @@ public class AdminController {
         User user = currentUser.getUser();
         if (user.getRole().equals("ROLE_ADMIN")) {
             model.addAttribute("allUsers",userService.findAllDto());
+            model.addAttribute("user", user);
             return "admin/all";
         }
         return "redirect:/logout";
