@@ -25,7 +25,6 @@ public class IngredientController {
 
     @GetMapping("/add/{id}")
     public String add(Model model, @PathVariable int id) {
-//        TODO : dodać to dla usera w widoku jego eksperymentów
         model.addAttribute("experimentId", id);
         model.addAttribute("ingredient", new Ingredient());
         return "experiment/details";
@@ -55,10 +54,11 @@ public class IngredientController {
     public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         User userExperiment = ingredientService.getById(id).getExperiment().getUser();
+        int experimentId = ingredientService.getById(id).getExperiment().getId();
         if (user.getId() == userExperiment.getId()) {
             ingredientService.deleteById(id);
         }
-        return "redirect:/user/account/"+user.getId();
+        return "redirect:/experiment/details/"+experimentId;
     }
 
 

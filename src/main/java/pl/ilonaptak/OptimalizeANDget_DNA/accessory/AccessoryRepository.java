@@ -14,6 +14,8 @@ interface AccessoryRepository extends JpaRepository<Accessory, Integer> {
 
     List<Accessory> findAllByExperimentId(Integer id);
 
+    void deleteAllByExperimentId(Integer id);
+
 
     @Modifying
     @Query(nativeQuery = true, value = "insert into accessories (name, quantity, experiment_id) SELECT name, quantity, null from accessories where experiment_id = :experimentId")

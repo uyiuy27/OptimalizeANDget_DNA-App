@@ -13,5 +13,7 @@ interface ReactionRepository extends JpaRepository<Reaction, Integer> {
 
     List<Reaction> findAllByExperimentId(Integer id);
 
+    void deleteAllByExperimentId(Integer id);
+
 
 }

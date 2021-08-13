@@ -45,7 +45,7 @@
             </a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="/user/account/${user.id}">
+            <a class="nav-link" href="/user/account/${userId}">
                 <span><spring:message code="user.account"/></span>
             </a>
         </li>
@@ -233,7 +233,7 @@
                                         code="experiment.added"/></h6>
                             </div>
                             <div class="card-body">
-                                ${experiment.user.username}
+                                ${experiment.addedBy}
                             </div>
                         </div>
 
@@ -283,14 +283,14 @@
                                                     <spring:message code="experiment.description"/> *: <form:input
                                                         path="description" type="text"
                                                         class="form-control form-control-user"/><br>
-                                                    <form:errors path="description"/><br>
+                                                    <form:errors path="description" class="alert alert-danger"/><br>
                                                 </div>
                                                 <div class="form-group">
                                                     <spring:message code="experiment.reaction.time"/> : <form:input
                                                         path="time"
                                                         type="text"
                                                         class="form-control form-control-user"/><br>
-                                                    <form:errors path="time"/><br>
+                                                    <form:errors path="time" class="alert alert-danger"/><br>
                                                 </div>
                                                 <button type="submit"
                                                         class="btn btn-primary btn-user btn-block col-sm-6 mb-3 mb-sm-0">
@@ -342,14 +342,14 @@
                                                     <spring:message code="experiment.name"/> *: <form:input path="name"
                                                                                                             type="text"
                                                                                                             class="form-control form-control-user"/><br>
-                                                    <form:errors path="name"/><br>
+                                                    <form:errors path="name" class="alert alert-danger"/><br>
                                                 </div>
                                                 <div class="form-group">
                                                     <spring:message code="experiment.quantity"/> : <form:input
                                                         path="quantity"
                                                         type="text"
                                                         class="form-control form-control-user"/><br>
-                                                    <form:errors path="quantity"/><br>
+                                                    <form:errors path="quantity" class="alert alert-danger"/><br>
                                                 </div>
                                                 <button type="submit"
                                                         class="btn btn-primary btn-user btn-block col-sm-6 mb-3 mb-sm-0">
@@ -372,8 +372,9 @@
                                 <c:choose>
                                     <c:when test="${!empty ingredients}">
                                         <ul>
-                                            <li>
+
                                                 <c:forEach items="${ingredients}" var="ingredient">
+                                                    <li>
                                                     ${ingredient.name} <spring:message
                                                         code="experiment.quantity"/> : ${ingredient.quantity}
                                                     <spring:message
@@ -386,8 +387,9 @@
                                                         </c:when>
                                                     </c:choose>
                                                     <br>
+                                                    </li>
                                                 </c:forEach>
-                                            </li>
+
                                         </ul>
                                     </c:when>
                                 </c:choose>
@@ -403,21 +405,21 @@
                                                     <spring:message code="experiment.name"/> *: <form:input path="name"
                                                                                                             type="text"
                                                                                                             class="form-control form-control-user"/><br>
-                                                    <form:errors path="name"/><br>
+                                                    <form:errors path="name" class="alert alert-danger"/><br>
                                                 </div>
                                                 <div class="form-group">
                                                     <spring:message code="experiment.quantity"/> : <form:input
                                                         path="quantity"
                                                         type="text"
                                                         class="form-control form-control-user"/><br>
-                                                    <form:errors path="quantity"/><br>
+                                                    <form:errors path="quantity" class="alert alert-danger"/><br>
                                                 </div>
                                                 <div class="form-group">
                                                     <spring:message code="experiment.concentration"/> : <form:input
                                                         path="concentration"
                                                         type="text"
                                                         class="form-control form-control-user"/><br>
-                                                    <form:errors path="concentration"/><br>
+                                                    <form:errors path="concentration" class="alert alert-danger"/><br>
                                                 </div>
                                                 <div class="form-group form-check">
                                                     <spring:message code="experiment.security"/>

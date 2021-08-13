@@ -202,9 +202,9 @@
                                     </div>
                                 </div>
                             </c:when>
-                            <c:otherwise>
-                                <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="/experiment/add"><spring:message code="experiment.add"/></a>
-                            </c:otherwise>
+<%--                            <c:otherwise>--%>
+<%--                                <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="/experiment/add"><spring:message code="experiment.add"/></a>--%>
+<%--                            </c:otherwise>--%>
                         </c:choose>
                     </div>
                 </div>

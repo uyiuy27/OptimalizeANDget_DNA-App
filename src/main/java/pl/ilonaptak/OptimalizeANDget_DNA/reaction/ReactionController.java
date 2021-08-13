@@ -79,8 +79,8 @@ public class ReactionController {
             return "reaction/form";
         }
         User user = currentUser.getUser();
-        User userExperiment = experimentService.findById(id).getUser();
         int experimentId = reactionService.getById(id).getExperiment().getId();
+        User userExperiment = experimentService.findById(experimentId).getUser();
         reaction.setExperiment(experimentService.findById(experimentId));
         if (user.getId() == userExperiment.getId()) {
             reactionService.save(reaction);

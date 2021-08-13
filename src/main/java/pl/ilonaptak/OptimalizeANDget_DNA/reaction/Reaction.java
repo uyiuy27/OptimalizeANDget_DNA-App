@@ -8,6 +8,7 @@ import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.Duration;
 
 @Data
@@ -28,6 +29,7 @@ public class Reaction {
     Experiment experiment;
 
     @NotEmpty
+    @Size(max = 250)
     String description;
 
     String time;

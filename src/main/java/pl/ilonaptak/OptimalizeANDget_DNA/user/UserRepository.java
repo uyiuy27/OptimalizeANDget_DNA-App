@@ -11,11 +11,11 @@ import java.util.Optional;
 @Transactional
 interface UserRepository extends JpaRepository<User, Integer> {
 
-    Optional<User> findById(Integer id);
-
     User findByUsername(String login);
 
     List<User> findAllByRole(String role);
+
+    List<User> findAllByEmail(String email);
 
     boolean existsByRole(String role);
 

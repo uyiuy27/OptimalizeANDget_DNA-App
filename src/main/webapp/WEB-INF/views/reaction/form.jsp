@@ -168,17 +168,17 @@
                                         <spring:message code="experiment.description"/>*: <form:input path="description"
                                                                                                       type="text"
                                                                                                       class="form-control form-control-user"/>
-                                        <form:errors path="description"/><br>
+                                        <form:errors path="description" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="experiment.reaction.time"/>*: <form:input path="time"
                                                                                                         type="text"
                                                                                                         class="form-control form-control-user"/><br>
-                                        <form:errors path="time"/><br>
+                                        <form:errors path="time" class="alert alert-danger"/><br>
                                     </div>
                                     <button type="submit"
                                             class="btn btn-primary btn-user btn-block col-sm-6 mb-3 mb-sm-0">
-                                        <spring:message code="experiment.add"/>
+                                        <spring:message code="experiment.edit"/>
                                     </button>
                                 </form:form> <br><br>
                             </div>

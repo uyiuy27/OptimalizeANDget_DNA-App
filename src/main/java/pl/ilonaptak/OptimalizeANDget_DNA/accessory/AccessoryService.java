@@ -35,6 +35,10 @@ public class AccessoryService {
         accessoryRepository.deleteById(id);
     }
 
+    public void deleteAllByExperimentId(Integer id) {
+        accessoryRepository.deleteAllByExperimentId(id);
+    }
+
     public void saveAccessoriesToOtherUser(Integer experimentId) {
         accessoryRepository.saveAccessoriesToOtherUser(experimentId);
 

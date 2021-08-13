@@ -171,10 +171,22 @@
                                 <form:form method="post" modelAttribute="userPass">
                                     <div class="form-group">
                                         <spring:message code="user.password.update"/>: <form:input type="password"
-                                                                                             path="password"
-                                                                                             class="form-control form-control-user"
-                                                                                             id="exampleInputPassword"/><br>
-                                        <form:errors path="password"/><br>
+                                                                                                   path="password"
+                                                                                                   class="form-control form-control-user"
+                                                                                                   id="exampleInputPassword"/><br>
+                                        <form:errors path="password" class="alert alert-danger"/><br>
+                                    </div>
+                                    <div class="form-group">
+                                        <spring:message code="user.password.confirm"/>: <input type="password"
+                                                                                               name="passwordConfirm"
+                                                                                               class="form-control form-control-user"/><br>
+                                        <c:choose>
+                                            <c:when test="${!empty errorPassword}">
+                                                <div class="alert alert-danger"><p
+                                                        class="alert alert-danger">${errorPassword}</p></div>
+                                            </c:when>
+                                        </c:choose>
+
                                     </div>
                                     <button type="submit"
                                             class="btn btn-primary btn-user btn-block col-sm-6 mb-3 mb-sm-0">
@@ -219,18 +231,18 @@
             <script src="js/demo/chart-area-demo.js"></script>
             <script src="js/demo/chart-pie-demo.js"></script>
 
-<%--<form:form method="post" modelAttribute="userPass">--%>
-<%--    <form:errors path="*"/>--%>
-<%--&lt;%&ndash;    <form:hidden path="id" value="${id}"/>&ndash;%&gt;--%>
-<%--    <spring:message code="user.password.update"/>: <form:input type="password" path="password" value=""/><br>--%>
-<%--    <form:errors path="password"/><br>--%>
-<%--    &lt;%&ndash;    <spring:message code="user.password.confirm"/>*: <form:input type="password" path="confirmPass"/><br>&ndash;%&gt;--%>
-<%--    &lt;%&ndash;    <form:errors path="confirmPass"/><br>&ndash;%&gt;--%>
-<%--    <input type="submit">--%>
-<%--</form:form>--%>
+            <%--<form:form method="post" modelAttribute="userPass">--%>
+            <%--    <form:errors path="*"/>--%>
+            <%--&lt;%&ndash;    <form:hidden path="id" value="${id}"/>&ndash;%&gt;--%>
+            <%--    <spring:message code="user.password.update"/>: <form:input type="password" path="password" value=""/><br>--%>
+            <%--    <form:errors path="password"/><br>--%>
+            <%--    &lt;%&ndash;    <spring:message code="user.password.confirm"/>*: <form:input type="password" path="confirmPass"/><br>&ndash;%&gt;--%>
+            <%--    &lt;%&ndash;    <form:errors path="confirmPass"/><br>&ndash;%&gt;--%>
+            <%--    <input type="submit">--%>
+            <%--</form:form>--%>
 
-<%--<br>--%>
-<%--<button><a href="/user/account/${id}"><spring:message code="user.back"/></a></button>--%>
-<%--<br>--%>
+            <%--<br>--%>
+            <%--<button><a href="/user/account/${id}"><spring:message code="user.back"/></a></button>--%>
+            <%--<br>--%>
 </body>
 </html>

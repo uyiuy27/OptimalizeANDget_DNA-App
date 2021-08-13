@@ -158,40 +158,41 @@
 
                                 <form:form method="post" modelAttribute="experiment">
                                     <form:hidden path="id"/>
+                                    <form:hidden path="createdOn"/>
                                     <div class="form-group">
                                         <spring:message code="experiment.name"/>*: <form:input path="name" type="text"
                                                                                                class="form-control form-control-user"/>
-                                        <form:errors path="name"/><br>
+                                        <form:errors path="name" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="experiment.description"/>*: <form:input path="description"
                                                                                                       type="text"
                                                                                                       class="form-control form-control-user"/><br>
-                                        <form:errors path="description"/><br>
+                                        <form:errors path="description" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="experiment.originalAuthor"/>: <form:input path="author"
                                                                                                         type="text"
                                                                                                         class="form-control form-control-user"/><br>
-                                        <form:errors path="author"/><br>
+                                        <form:errors path="author" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="experiment.resource"/>: <form:input path="resource"
                                                                                                   type="text"
                                                                                                   class="form-control form-control-user"/><br>
-                                        <form:errors path="resource"/><br>
+                                        <form:errors path="resource" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="experiment.difficulty"/>: <form:input path="difficulty"
                                                                                                     type="text"
                                                                                                     class="form-control form-control-user"/><br>
-                                        <form:errors path="difficulty"/><br>
+                                        <form:errors path="difficulty" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="experiment.time"/>: <form:input path="plannedDuration"
                                                                                               type="text"
                                                                                               class="form-control form-control-user"/><br>
-                                        <form:errors path="plannedDuration"/><br>
+                                        <form:errors path="plannedDuration" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group form-check">
                                     <c:choose>

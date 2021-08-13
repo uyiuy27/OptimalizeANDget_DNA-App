@@ -21,6 +21,7 @@ public class User {
     int id;
 
     @NotBlank
+    @Column(unique = true)
     String username;
 
     @Email
@@ -29,18 +30,13 @@ public class User {
     String email;
 
     @NotEmpty
-    @Size(min = 6)
+    @Size(min=6)
     String password;
 
-//    @NotNull(message = "nie pasują")
-//    @Size(min=6)
-//    @Transient
-//    String confirmPass;
-
-    @Size(max = 120)
+    @Size(max=120)
     String workplace;
 
-    @Size(max = 50)
+    @Size(max=50)
     String position;
 
     LocalDate firstLoginOn;
@@ -56,29 +52,5 @@ public class User {
     public void prePersist() {
         firstLoginOn = LocalDate.now();
     }
-
-//    public void setPassword(String password) {
-//        this.password = password;
-//        checkPassword();
-//    }
-//
-//    public void setConfirmPass(String confirmPass) {
-//        this.confirmPass = confirmPass;
-//        checkPassword();
-//    }
-//
-//    private void checkPassword() {
-//        if(this.password == null || this.confirmPass == null) {
-//            return;
-//        } else if (!this.password.equals(confirmPass)) {
-//            this.confirmPass = null;
-//        }
-//    }
-
-//
-//    @AssertTrue(message = "hasła muszą być takie same")
-//    public boolean isValid() {
-//        return this.password.equals(this.confirmPass);
-//    }
 
 }

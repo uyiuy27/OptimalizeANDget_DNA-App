@@ -47,6 +47,7 @@ public class ExperimentService {
 
     void saveByOtherUser(Integer experimentId, Integer userId) {
         Experiment newExperiment = experimentRepository.getById(experimentId).clone();
+        newExperiment.setAddedBy(experimentRepository.getById(experimentId).getAddedBy());
         newExperiment.setUser(userService.findById(userId));
         newExperiment.setVisibility("private");
         experimentRepository.save(newExperiment);
@@ -73,7 +74,7 @@ public class ExperimentService {
         }
     }
 
-    void delete(Integer experimentId) {
+    public void delete(Integer experimentId) {
         List<Accessory> accessories = accessoryService.findAllByExperimentId(experimentId);
         for (Accessory accessory : accessories) {
             accessoryService.deleteById(accessory.getId());
@@ -89,6 +90,21 @@ public class ExperimentService {
             reactionService.deleteById(reaction.getId());
         }
         experimentRepository.deleteById(experimentId);
+    }
+
+    public void deleteAllByUserId(Integer id) {
+        List<Experiment> experiments = experimentRepository.findAllByUserId(id);
+        for(Experiment experiment : experiments) {
+            int experimentId = experiment.getId();
+            ingredientService.deleteAllByExperimentId(experimentId);
+            accessoryService.deleteAllByExperimentId(experimentId);
+            reactionService.deleteAllByExperimentId(experimentId);
+        }
+        experimentRepository.deleteAllByUserId(id);
+    }
+
+    public boolean existsById(Integer id) {
+        return experimentRepository.existsById(id);
     }
 
 

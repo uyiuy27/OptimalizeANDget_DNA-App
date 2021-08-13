@@ -44,7 +44,6 @@ public class Experiment {
 
     String difficulty;
 
-    @NotNull
     String visibility;
 
     String author;

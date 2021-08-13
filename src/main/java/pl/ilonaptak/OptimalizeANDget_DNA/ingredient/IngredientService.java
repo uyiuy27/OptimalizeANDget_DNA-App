@@ -31,5 +31,9 @@ public class IngredientService {
         ingredientRepository.deleteById(id);
     }
 
+    public void deleteAllByExperimentId(Integer id) {
+        ingredientRepository.deleteAllByExperimentId(id);
+    }
+
 
 }

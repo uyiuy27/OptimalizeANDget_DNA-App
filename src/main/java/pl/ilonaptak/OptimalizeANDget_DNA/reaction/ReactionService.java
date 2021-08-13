@@ -31,4 +31,8 @@ public class ReactionService {
         reactionRepository.deleteById(id);
     }
 
+    public void deleteAllByExperimentId(Integer id) {
+        reactionRepository.deleteAllByExperimentId(id);
+    }
+
 }

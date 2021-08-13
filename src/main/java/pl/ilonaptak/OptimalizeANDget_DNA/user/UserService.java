@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
+import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,10 @@ public class UserService {
             userEditDtos.add(UserDtoConverter.convertUserToUserDto(user, new UserEditDto()));
         }
         return userEditDtos;
+    }
+
+    public List<User> findAllByEmail(String email) {
+        return userRepository.findAllByEmail(email);
     }
 
     public void update(UserEditDto userEditDto) {

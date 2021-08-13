@@ -14,7 +14,9 @@ import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -36,13 +38,43 @@ public class HelloController {
     }
 
     @PostMapping("/register")
-    public String add(@Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+    public String add(@Valid User user, BindingResult bindingResult, HttpServletRequest request, @AuthenticationPrincipal CurrentUser currentUser) {
+        List<User> emailValidation = userService.findAllByEmail(user.getEmail());
+        if(!emailValidation.isEmpty()) {
+            request.setAttribute("alreadyExist", "Podany adres email już istnieje");
+            return "home/form";
+        }
+
+        User usernameValidation = userService.findByUserName(user.getUsername());
+        String password = request.getParameter("passwordRepeat");
+
+        if(usernameValidation != null) {
+            request.setAttribute("alreadyExist", "Użytkownik o tym loginie już istnieje");
+            return "home/form";
+        }
+
+        if (bindingResult.hasErrors() && !password.equals(user.getPassword())) {
+            request.setAttribute("errorPassword", "Podane hasła są różne");
+            return "home/form";
+        } else if (bindingResult.hasErrors()) {
+            return "home/form";
+        } else if (!password.equals(user.getPassword())) {
+            request.setAttribute("errorPassword", "Podane hasła są różne");
             return "home/form";
         }
         userService.save(user);
         return "redirect:/";
     }
+
+//    @PostMapping("/register")
+//    public String add(@Valid User user, BindingResult bindingResult) {
+//
+//        if (bindingResult.hasErrors()) {
+//            return "home/form";
+//        }
+//        userService.save(user);
+//        return "redirect:/";
+//    }
 
 
     @GetMapping("/about")

@@ -53,9 +53,13 @@ public class ExperimentController {
         if (bindingResult.hasErrors()) {
             return "experiment/form";
         }
+        if(experiment.getVisibility() == null) {
+            experiment.setVisibility("private");
+        }
         User user = currentUser.getUser();
         int userId = user.getId();
         experiment.setUser(userService.findById(userId));
+
         experimentService.save(experiment);
         return "redirect:/user/account/"+userId;
     }
@@ -83,6 +87,9 @@ public class ExperimentController {
         User user = currentUser.getUser();
         User userExperiment = experimentService.findById(id).getUser();
         if (user.getId() == userExperiment.getId()) {
+            if(experiment.getVisibility() == null) {
+                experiment.setVisibility("private");
+            }
             experiment.setUser(user);
             experimentService.save(experiment);
         }
@@ -118,28 +125,31 @@ public class ExperimentController {
     @GetMapping("/details/{id}")
     public String details(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
-        User userExperiment = experimentService.findById(id).getUser();
-        if (experimentService.findById(id).getVisibility().equals("public") || user.getId() == userExperiment.getId()) {
-            model.addAttribute("experiment", experimentService.findById(id));
-            model.addAttribute("accessories", accessoryService.findAllByExperimentId(id));
-            model.addAttribute("accessory", new Accessory());
-            model.addAttribute("ingredients", ingredientService.findAllByExperimentId(id));
-            model.addAttribute("ingredient", new Ingredient());
-            model.addAttribute("reactions", reactionService.findAllByExperimentId(id));
-            model.addAttribute("reaction", new Reaction());
-            if (user.getId() == userExperiment.getId()) {
-                model.addAttribute("user", user);
-            }
-            List<Experiment> experimentList = experimentService.findAllByUserId(user.getId());
-            for (Experiment experiment : experimentList) {
-                if (user.getId() == userExperiment.getId() || experimentService.findById(id).getName().equals(experiment.getName())) {
-                    model.addAttribute("cantAdd", "cantAdd");
+        if (experimentService.existsById(id)) {
+            User userExperiment = experimentService.findById(id).getUser();
+            if (experimentService.findById(id).getVisibility().equals("public") || user.getId() == userExperiment.getId()) {
+                model.addAttribute("experiment", experimentService.findById(id));
+                model.addAttribute("accessories", accessoryService.findAllByExperimentId(id));
+                model.addAttribute("accessory", new Accessory());
+                model.addAttribute("ingredients", ingredientService.findAllByExperimentId(id));
+                model.addAttribute("ingredient", new Ingredient());
+                model.addAttribute("reactions", reactionService.findAllByExperimentId(id));
+                model.addAttribute("reaction", new Reaction());
+                if (user.getId() == userExperiment.getId()) {
+                    model.addAttribute("user", user);
                 }
+                List<Experiment> experimentList = experimentService.findAllByUserId(user.getId());
+                for (Experiment experiment : experimentList) {
+                    if (user.getId() == userExperiment.getId() || experimentService.findById(id).getName().equals(experiment.getName())) {
+                        model.addAttribute("cantAdd", "cantAdd");
+                    }
+                }
+                if (user.getRole().equals("ROLE_ADMIN")) {
+                    model.addAttribute("admin", user.getRole());
+                }
+                model.addAttribute("userId", user.getId());
+                return "experiment/details";
             }
-            if(user.getRole().equals("ROLE_ADMIN")) {
-                model.addAttribute("admin", user.getRole());
-            }
-            return "experiment/details";
         }
 
         return "redirect:/";

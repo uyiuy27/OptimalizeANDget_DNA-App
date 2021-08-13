@@ -7,8 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @Controller
@@ -75,11 +79,28 @@ public class UserController {
     }
 
     @PostMapping("/updatepass/{id}")
-    public String updateUser(@PathVariable int id, UserEditPasswordDto user, BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser) {
+    public String updateUser(@PathVariable int id, UserEditPasswordDto user, BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser, HttpServletRequest request, Model model) {
+        String password = request.getParameter("passwordConfirm");
         User cuUser = currentUser.getUser();
         if (cuUser.getId() == id) {
-            userService.updatePassword(user, id);
-            return "redirect:/user/account/" + id;
+            if (bindingResult.hasErrors() && !password.equals(user.getPassword())) {
+                request.setAttribute("errorPassword", "Podane hasła są różne");
+                model.addAttribute("userPass", new UserEditPasswordDto());
+                model.addAttribute("id", id);
+                return "user/updatepass";
+            } else if (bindingResult.hasErrors()) {
+                model.addAttribute("userPass", new UserEditPasswordDto());
+                model.addAttribute("id", id);
+                return "user/updatepass";
+            } else if (!password.equals(user.getPassword())) {
+                model.addAttribute("id", id);
+                model.addAttribute("userPass", new UserEditPasswordDto());
+                request.setAttribute("errorPassword", "Podane hasła są różne");
+                return "user/updatepass";
+            } else {
+                userService.updatePassword(user, id);
+                return "redirect:/user/account/" + id;
+            }
         } else {
             return "redirect:/logout";
         }
@@ -89,7 +110,7 @@ public class UserController {
     public String confirmDelete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         User cuUser = currentUser.getUser();
         if (cuUser.getId() == id || cuUser.getRole().equals("ROLE_ADMIN")) {
-            if(cuUser.getRole().equals("ROLE_ADMIN")) {
+            if (cuUser.getRole().equals("ROLE_ADMIN")) {
                 model.addAttribute("admin", cuUser.getRole());
             }
             model.addAttribute("user", cuUser);
@@ -104,10 +125,12 @@ public class UserController {
     public String deleteUser(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         if (user.getId() == id && !user.getRole().equals("ROLE_ADMIN")) {
+            experimentService.deleteAllByUserId(id);
             userService.delete(id);
             return "redirect:/logout";
         } else if (user.getRole().equals("ROLE_ADMIN")) {
             if (userService.findAllByRole("ROLE_ADMIN").size() > 1 || !userService.findById(id).getRole().equals("ROLE_ADMIN")) {
+                experimentService.deleteAllByUserId(id);
                 userService.delete(id);
                 return "redirect:/admin/all";
             } else {
@@ -117,6 +140,8 @@ public class UserController {
         } else {
             return "redirect:/logout";
         }
+
+
     }
 
 

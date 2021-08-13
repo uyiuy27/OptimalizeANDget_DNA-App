@@ -11,5 +11,6 @@ import java.util.List;
 interface IngredientRepository extends JpaRepository<Ingredient, Integer> {
 
     List<Ingredient> findAllByExperimentId(Integer id);
+    void deleteAllByExperimentId(Integer id);
 
 }

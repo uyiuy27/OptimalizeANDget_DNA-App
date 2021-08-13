@@ -176,23 +176,23 @@
                                         <spring:message code="user.username"/>*: <form:input path="username" type="text"
                                                                                              class="form-control form-control-user"
                                                                                              id="exampleFirstName"/>
-                                        <form:errors path="username"/><br>
+                                        <form:errors path="username" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="admin.email"/>*: <form:input path="email" type="email"
                                                                                            class="form-control form-control-user"
                                                                                            id="exampleInputEmail"/><br>
-                                        <form:errors path="email"/><br>
+                                        <form:errors path="email" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="admin.work"/>: <form:input path="workplace" type="text"
                                                                                          class="form-control form-control-user"/><br>
-                                        <form:errors path="workplace"/><br>
+                                        <form:errors path="workplace" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="admin.position"/>: <form:input path="position" type="text"
                                                                                              class="form-control form-control-user"/><br>
-                                        <form:errors path="position"/><br>
+                                        <form:errors path="position" class="alert alert-danger"/><br>
                                     </div>
                                     <button type="submit"
                                             class="btn btn-primary btn-user btn-block col-sm-6 mb-3 mb-sm-0">

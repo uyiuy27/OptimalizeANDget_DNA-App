@@ -147,36 +147,52 @@
                                 </h6>
                             </div>
                             <div class="card-body">
+                                <c:choose>
+                                    <c:when test="${!empty alreadyExist}">
+                                        <p class="alert alert-danger">${alreadyExist}</p>
+                                    </c:when>
+                                </c:choose>
                                 <form:form method="post" modelAttribute="user">
                                     <form:hidden path="id"/>
                                     <div class="form-group">
                                         <spring:message code="user.username"/>*: <form:input path="username" type="text"
                                                                                              class="form-control form-control-user"
                                                                                              id="exampleFirstName"/>
-                                        <form:errors path="username"/><br>
+                                        <form:errors path="username" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
-                                        <spring:message code="admin.email"/>*: <form:input path="email" type="email"
+                                        <spring:message code="admin.email"/>*: <form:input path="email" type="text"
                                                                                            class="form-control form-control-user"
                                                                                            id="exampleInputEmail"/><br>
-                                        <form:errors path="email"/><br>
+                                        <form:errors path="email" class="alert alert-danger"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="user.password"/>*: <form:input type="password"
                                                                                              path="password"
                                                                                              class="form-control form-control-user"
                                                                                              id="exampleInputPassword"/><br>
-                                        <form:errors path="password"/><br>
+                                        <form:errors path="password" class="alert alert-danger"/><br>
+                                    </div>
+                                    <div class="form-group">
+                                        <spring:message code="user.password.confirm"/>*: <input type="password"
+                                                                                             name="passwordRepeat"
+                                                                                             class="form-control form-control-user"
+                                        <c:choose>
+                                            <c:when test="${!empty errorPassword}">
+                                                <div class="alert alert-danger"><p class="alert alert-danger">${errorPassword}</p></div>
+                                            </c:when>
+                                        </c:choose>
+
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="admin.work"/>: <form:input path="workplace" type="text"
                                                                                          class="form-control form-control-user"/><br>
-                                        <form:errors path="workplace"/><br>
+                                        <form:errors class="alert alert-danger" path="workplace"/><br>
                                     </div>
                                     <div class="form-group">
                                         <spring:message code="admin.position"/>: <form:input path="position" type="text"
                                                                                              class="form-control form-control-user"/><br>
-                                        <form:errors path="position"/><br>
+                                        <form:errors class="alert alert-danger" path="position"/><br>
                                     </div>
                                     <button type="submit"
                                             class="btn btn-primary btn-user btn-block col-sm-6 mb-3 mb-sm-0">

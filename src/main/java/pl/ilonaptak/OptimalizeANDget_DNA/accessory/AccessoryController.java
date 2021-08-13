@@ -55,10 +55,11 @@ public class AccessoryController {
     public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         User userExperiment = accessoryService.getById(id).getExperiment().getUser();
+        int experimentId = accessoryService.getById(id).getExperiment().getId();
         if (user.getId() == userExperiment.getId()) {
             accessoryService.deleteById(id);
         }
-        return "redirect:/user/account/"+user.getId();
+        return "redirect:/experiment/details/"+experimentId;
     }
 
 }
