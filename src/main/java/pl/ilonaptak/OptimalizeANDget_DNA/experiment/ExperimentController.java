@@ -75,7 +75,6 @@ public class ExperimentController {
 
 
     @PostMapping("/update/{id}")
-    @ResponseBody
     public String update(@PathVariable int id, @Valid Experiment experiment, BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser) {
         if (bindingResult.hasErrors()) {
 //            model.addAttribute("experiment", experimentService.findById(id)); // sprawdzić czy to się przyda
@@ -84,6 +83,7 @@ public class ExperimentController {
         User user = currentUser.getUser();
         User userExperiment = experimentService.findById(id).getUser();
         if (user.getId() == userExperiment.getId()) {
+            experiment.setUser(user);
             experimentService.save(experiment);
         }
         return "redirect:/user/account/"+user.getId();
@@ -135,6 +135,9 @@ public class ExperimentController {
                 if (user.getId() == userExperiment.getId() || experimentService.findById(id).getName().equals(experiment.getName())) {
                     model.addAttribute("cantAdd", "cantAdd");
                 }
+            }
+            if(user.getRole().equals("ROLE_ADMIN")) {
+                model.addAttribute("admin", user.getRole());
             }
             return "experiment/details";
         }
