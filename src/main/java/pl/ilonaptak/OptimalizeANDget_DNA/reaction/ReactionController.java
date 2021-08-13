@@ -57,23 +57,34 @@ public class ReactionController {
 
 
     @GetMapping("/update/{id}")
-    public String update(@PathVariable int id, Model model) {
+    public String update(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         Reaction reaction = reactionService.getById(id);
         int experimentId = reaction.getExperiment().getId();
+        User user = currentUser.getUser();
         model.addAttribute("experimentId", experimentId);
         model.addAttribute("reaction", reactionService.getById(id));
+        model.addAttribute("userId", user.getId());
+        model.addAttribute("userName", user.getUsername());
+        if(user.getRole().equals("ROLE_ADMIN")) {
+            model.addAttribute("admin", user.getRole());
+        }
+
         return "reaction/form";
     }
 
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable int id, @Valid Reaction reaction, BindingResult bindingResult) {
+    public String update(@PathVariable int id, @Valid Reaction reaction, BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser) {
         if (bindingResult.hasErrors()) {
             return "reaction/form";
         }
+        User user = currentUser.getUser();
+        User userExperiment = experimentService.findById(id).getUser();
         int experimentId = reactionService.getById(id).getExperiment().getId();
         reaction.setExperiment(experimentService.findById(experimentId));
-        reactionService.save(reaction);
+        if (user.getId() == userExperiment.getId()) {
+            reactionService.save(reaction);
+        }
         return "redirect:/experiment/details/" + experimentId;
     }
 

@@ -63,11 +63,11 @@
                         <span><spring:message code="user.account"/></span>
                     </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost:8080/logout">
-                        <span><spring:message code="user.logout"/></span>
-                    </a>
-                </li>
+<%--                <li class="nav-item active">--%>
+<%--                    <a class="nav-link" href="http://localhost:8080/logout">--%>
+<%--                        <span><spring:message code="user.logout"/></span>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
             </c:when>
             <c:otherwise>
                 <li class="nav-item active">
