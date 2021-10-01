@@ -56,22 +56,19 @@ public class UserController {
      * @return
      */
 // TODO: zmienić odpowiednio na ogólnie widoczny profil
-    @GetMapping("/account/profile/{id}")
+    @GetMapping("/profile/{id}")
     public String showUserProfile(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         if (userService.existsById(id)) {
-            if (user.getId() == id) {
                 model.addAttribute("userExperiments", experimentService.findAllByUserId(id));
                 model.addAttribute("user", userService.findUserDtoById(id));
                 model.addAttribute("id", id);
                 if (user.getRole().equals("ROLE_ADMIN")) {
                     model.addAttribute("admin", user.getRole());
                 }
-                return "user/details";
+                return "user/profile";
             }
-
-        }
-        return "redirect:/logout";
+        return "redirect:/";
     }
 
     /**
