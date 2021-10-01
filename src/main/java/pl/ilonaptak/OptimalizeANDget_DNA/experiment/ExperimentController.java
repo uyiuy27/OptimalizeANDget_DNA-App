@@ -30,7 +30,12 @@ public class ExperimentController {
     private final IngredientService ingredientService;
     private final ReactionService reactionService;
 
-
+    /**
+     * Endpoint odpowiadający za dodawanie eksperymentu
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/add")
 //    @ResponseBody
     public String add(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
@@ -64,6 +69,13 @@ public class ExperimentController {
         return "redirect:/user/account/"+userId;
     }
 
+    /**
+     * Edycja eksperymentu
+     * @param id
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/update/{id}")
     public String update(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -96,6 +108,13 @@ public class ExperimentController {
         return "redirect:/user/account/"+user.getId();
     }
 
+    /**
+     * Potwierdzenie chęci usunięcia eksperymentu
+     * @param id
+     * @param currentUser
+     * @param model
+     * @return
+     */
     @GetMapping("/confirm/{id}")
     public String confirmDelete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         User cuUser = currentUser.getUser();
@@ -110,7 +129,12 @@ public class ExperimentController {
         }
     }
 
-
+    /**
+     * Usuwanie eksperymentu
+     * @param id
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -121,7 +145,13 @@ public class ExperimentController {
         return "redirect:/user/account/"+user.getId();
     }
 
-    // szczegóły może zobaczyć tylko autor lub zalogowany user jeżeli jest ustawione jako publiczne
+    /**
+     * Szczegóły eksperymentu. Eksperymenty publiczne widoczne dla wszystkich zalogowanych użytkowników
+     * @param id
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/details/{id}")
     public String details(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -155,6 +185,12 @@ public class ExperimentController {
         return "redirect:/";
     }
 
+    /**
+     * Endpoint dodawania eksperymentów innych użytkowników do własnej listy
+     * @param id
+     * @param currentUser
+     * @return
+     */
     @GetMapping("addtoexperiments/{id}")
     public String addToUserExperiments(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();

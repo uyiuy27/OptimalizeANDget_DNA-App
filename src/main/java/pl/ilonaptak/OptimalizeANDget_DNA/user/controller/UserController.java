@@ -23,6 +23,13 @@ public class UserController {
     private final UserService userService;
     private final ExperimentService experimentService;
 
+    /**
+     * Endpoint wyświetlający szczegóły konta dla obecnie zalogowanego Usera
+     * @param id
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/account/{id}")
     public String showUserDetails(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -41,9 +48,43 @@ public class UserController {
         return "redirect:/logout";
     }
 
+    /**
+     * Endpoint wyświetlający profil Usera
+     * @param id
+     * @param model
+     * @param currentUser
+     * @return
+     */
+// TODO: zmienić odpowiednio na ogólnie widoczny profil
+    @GetMapping("/account/profile/{id}")
+    public String showUserProfile(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        if (userService.existsById(id)) {
+            if (user.getId() == id) {
+                model.addAttribute("userExperiments", experimentService.findAllByUserId(id));
+                model.addAttribute("user", userService.findUserDtoById(id));
+                model.addAttribute("id", id);
+                if (user.getRole().equals("ROLE_ADMIN")) {
+                    model.addAttribute("admin", user.getRole());
+                }
+                return "user/details";
+            }
+
+        }
+        return "redirect:/logout";
+    }
+
+    /**
+     * endpoint aktualizujący dane Usera
+     * @param id
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/update/{id}")
     public String updateUser(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
+
         if (userService.existsById(id)) {
             if (user.getId() == id) {
                 model.addAttribute("user", userService.findUserDtoById(id));
@@ -57,6 +98,9 @@ public class UserController {
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable int id, UserEditDto user, BindingResult bindingResult, @AuthenticationPrincipal CurrentUser currentUser) {
         User cuUser = currentUser.getUser();
+        if (bindingResult.hasErrors()) {
+            return "user/update";
+        }
         if (cuUser.getId() == id) {
             userService.update(user);
             return "redirect:/user/account/" + id;
@@ -65,6 +109,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Endpoint aktualizujący hasło usera
+     * @param id
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/updatepass/{id}")
     public String updatePass(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -106,6 +157,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Endpoint potwierdzający chęć usunięcia konta
+     * @param id
+     * @param currentUser - obecnie zalogowany user
+     * @param model
+     * @return
+     */
     @GetMapping("/confirm/{id}")
     public String confirmDelete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         User cuUser = currentUser.getUser();
@@ -121,6 +179,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Endpoint usuwający usera
+     * @param id
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();

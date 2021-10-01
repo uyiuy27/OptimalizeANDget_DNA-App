@@ -25,16 +25,54 @@ public class HelloController {
     private final UserService userService;
     private final ExperimentService experimentService;
 
+    /**
+     * Endpoint odsyłający na stronę główną aplikacji
+     * @return
+     */
     @RequestMapping("/home")
     public String hello() {
         return "home/home";
     }
 
+    /**
+     * Endpoint strona główna aplikacji
+     * @param model
+     * @param currentUser
+     * @return
+     */
+    @GetMapping("/")
+    public String allPublicExperiments(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        model.addAttribute("experiments", experimentService.findAllByVisibility("public"));
+        if (currentUser != null) {
+            User user = currentUser.getUser();
+            model.addAttribute("user", user);
+            System.out.println(user.getRole());
+            if(user.getRole().equals("ROLE_ADMIN")) {
+                model.addAttribute("admin", user.getRole());
+            }
+        }
+        return "home/home";
+    }
+
+    /**
+     * Endpoint odsyłający do strony z informacjami o aplikacji
+     * @return
+     */
+    @GetMapping("/about")
+    @ResponseBody
+    public String about() {
+        return "about";
+    }
+
+    /**
+     * Endpoint rejestracji użytkownika
+     * @param model
+     * @return
+     */
     @GetMapping("/register")
     public String add(Model model) {
         model.addAttribute("user", new User());
         return "home/form";
-
     }
 
     @PostMapping("/register")
@@ -65,37 +103,5 @@ public class HelloController {
         userService.save(user);
         return "redirect:/";
     }
-
-//    @PostMapping("/register")
-//    public String add(@Valid User user, BindingResult bindingResult) {
-//
-//        if (bindingResult.hasErrors()) {
-//            return "home/form";
-//        }
-//        userService.save(user);
-//        return "redirect:/";
-//    }
-
-
-    @GetMapping("/about")
-    @ResponseBody
-    public String about() {
-        return "about";
-    }
-
-    @GetMapping("/")
-    public String allPublicExperiments(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
-        model.addAttribute("experiments", experimentService.findAllByVisibility("public"));
-        if (currentUser != null) {
-            User user = currentUser.getUser();
-            model.addAttribute("user", user);
-            System.out.println(user.getRole());
-            if(user.getRole().equals("ROLE_ADMIN")) {
-                model.addAttribute("admin", user.getRole());
-            }
-        }
-        return "home/home";
-    }
-
 
 }

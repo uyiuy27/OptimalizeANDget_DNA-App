@@ -19,7 +19,13 @@ public class AdminController {
     private final UserService userService;
 
 
-// TODO: ma się dodawać lista userów ale dto, również według roli wrzucamy listę dto, w widoku dodać opcję zmiany roli, banowania i usuwania userów
+// TODO: w widoku dodać opcję banowania userów
+    /**
+     * Endpoint dla listy wszystkich userów w widoku Admina
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/users/all")
     public String allUsers(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -31,6 +37,12 @@ public class AdminController {
         return "redirect:/logout";
     }
 
+    /**
+     * Endpoint dla listy wszyskich adminów w widoku Admina
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/admins/all")
     public String allAdmins(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -43,6 +55,13 @@ public class AdminController {
 
     }
 
+    // TODO: Zastanowić się czy to jest potrzebne
+    /**
+     * Endpoint widoku wszystkich użytkowników aplikacji dla Admina
+     * @param model
+     * @param currentUser
+     * @return
+     */
     @GetMapping("/all")
     public String all(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -54,6 +73,13 @@ public class AdminController {
         return "redirect:/logout";
     }
 
+    /**
+     * Zmiana roli użytkownika przez Admina
+     * @param id
+     * @param currentUser
+     * @param request
+     * @return
+     */
     @GetMapping("/change/{id}")
     public String changeRole(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser, HttpServletRequest request) {
         User user = currentUser.getUser();
@@ -70,8 +96,6 @@ public class AdminController {
             }
             userService.saveRole(userToChange, role);
         }
-//        String referer = request.getHeader("Referer");
-//        return "redirect:"+referer;
         return "redirect:/admin/all";
     }
 

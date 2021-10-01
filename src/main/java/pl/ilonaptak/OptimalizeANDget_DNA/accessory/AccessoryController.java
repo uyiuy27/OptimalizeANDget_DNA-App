@@ -22,6 +22,12 @@ public class AccessoryController {
     private final AccessoryService accessoryService;
     private final ExperimentService experimentService;
 
+    /**
+     * Endpoint dodający nowe akcesorium
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping("/add/{id}")
     public String add(Model model, @PathVariable int id) {
         model.addAttribute("experimentId", id);
@@ -50,7 +56,12 @@ public class AccessoryController {
     }
 
 
-
+    /**
+     * Endpoint usuwający akcesorium
+     * @param id
+     * @param currentUser
+     * @return
+     */
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();

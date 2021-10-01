@@ -19,10 +19,15 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class IngredientController {
 
-
     private final IngredientService ingredientService;
     private final ExperimentService experimentService;
 
+    /**
+     * Endpoint do dodawania składników
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping("/add/{id}")
     public String add(Model model, @PathVariable int id) {
         model.addAttribute("experimentId", id);
@@ -49,7 +54,12 @@ public class IngredientController {
         return "redirect:/experiment/details/" + id;
     }
 
-
+    /**
+     * Endpoint do usuwania składnikóœ
+     * @param id
+     * @param currentUser
+     * @return
+     */
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable int id, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -60,7 +70,6 @@ public class IngredientController {
         }
         return "redirect:/experiment/details/"+experimentId;
     }
-
 
 }
 
