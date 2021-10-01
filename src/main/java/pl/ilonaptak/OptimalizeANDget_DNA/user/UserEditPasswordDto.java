@@ -14,5 +14,4 @@ public class UserEditPasswordDto {
     @Size(min = 6)
     String password;
 
-
 }

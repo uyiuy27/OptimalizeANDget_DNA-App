@@ -31,6 +31,11 @@ public class ExperimentService {
         return experimentRepository.getById(id);
     }
 
+    /**
+     * Metoda wyszukująca wszystkie eksperymenty ustawione jako publiczne/niepubliczne
+     * @param visibility
+     * @return
+     */
     public List<Experiment> findAllByVisibility(String visibility) {
         return experimentRepository.findAllByVisibility(visibility);
     }
@@ -45,6 +50,11 @@ public class ExperimentService {
         experimentRepository.save(experiment);
     }
 
+    /**
+     * Zapisanie eksperymentu przez innego użytkownika niż jego twórca, widoczność ustawiona na prywatny
+     * @param experimentId
+     * @param userId
+     */
     void saveByOtherUser(Integer experimentId, Integer userId) {
         Experiment newExperiment = experimentRepository.getById(experimentId).clone();
         newExperiment.setAddedBy(experimentRepository.getById(experimentId).getAddedBy());
@@ -92,6 +102,10 @@ public class ExperimentService {
         experimentRepository.deleteById(experimentId);
     }
 
+    /**
+     * usuwa wszystkie eksperymenty użytkownika
+     * @param id
+     */
     public void deleteAllByUserId(Integer id) {
         List<Experiment> experiments = experimentRepository.findAllByUserId(id);
         for(Experiment experiment : experiments) {
