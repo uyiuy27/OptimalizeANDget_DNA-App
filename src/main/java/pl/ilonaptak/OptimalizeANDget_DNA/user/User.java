@@ -57,6 +57,7 @@ public class User {
      */
     String photoName;
 
+    // TODO: ustawić nazwy odpowiednie kolumn przed którymś kolejnym dropem
     @OneToMany
     List<Article> articles;
 
