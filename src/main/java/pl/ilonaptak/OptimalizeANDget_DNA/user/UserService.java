@@ -3,9 +3,9 @@ package pl.ilonaptak.OptimalizeANDget_DNA.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
-import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditDto;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditPasswordDto;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;

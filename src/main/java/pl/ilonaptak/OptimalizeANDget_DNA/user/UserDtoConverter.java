@@ -1,5 +1,9 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.user;
 
+import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditDto;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditPasswordDto;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
+
 public class UserDtoConverter {
 
     public static User convertUserDtoToUser(UserEditDto in, User out) {

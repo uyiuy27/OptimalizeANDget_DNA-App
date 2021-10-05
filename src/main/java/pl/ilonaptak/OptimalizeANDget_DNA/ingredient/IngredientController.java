@@ -10,7 +10,7 @@ import pl.ilonaptak.OptimalizeANDget_DNA.accessory.Accessory;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
 import pl.ilonaptak.OptimalizeANDget_DNA.reaction.Reaction;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 
 import javax.validation.Valid;
 

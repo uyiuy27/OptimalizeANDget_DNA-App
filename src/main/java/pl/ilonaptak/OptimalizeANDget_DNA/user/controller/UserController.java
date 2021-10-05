@@ -7,12 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.*;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditDto;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditPasswordDto;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 
 @Controller

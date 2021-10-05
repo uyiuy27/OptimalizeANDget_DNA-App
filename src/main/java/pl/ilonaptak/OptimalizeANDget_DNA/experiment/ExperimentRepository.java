@@ -1,10 +1,8 @@
 package pl.ilonaptak.OptimalizeANDget_DNA.experiment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 
 import javax.transaction.Transactional;
 import java.util.List;
