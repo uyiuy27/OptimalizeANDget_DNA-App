@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
 
 import java.util.HashSet;

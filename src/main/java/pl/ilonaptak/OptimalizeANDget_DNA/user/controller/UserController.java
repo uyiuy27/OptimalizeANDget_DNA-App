@@ -7,12 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.*;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditDto;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditPasswordDto;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 
 @Controller
@@ -56,22 +57,19 @@ public class UserController {
      * @return
      */
 // TODO: zmienić odpowiednio na ogólnie widoczny profil
-    @GetMapping("/account/profile/{id}")
+    @GetMapping("/profile/{id}")
     public String showUserProfile(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         if (userService.existsById(id)) {
-            if (user.getId() == id) {
                 model.addAttribute("userExperiments", experimentService.findAllByUserId(id));
                 model.addAttribute("user", userService.findUserDtoById(id));
                 model.addAttribute("id", id);
                 if (user.getRole().equals("ROLE_ADMIN")) {
                     model.addAttribute("admin", user.getRole());
                 }
-                return "user/details";
+                return "user/profile";
             }
-
-        }
-        return "redirect:/logout";
+        return "redirect:/";
     }
 
     /**

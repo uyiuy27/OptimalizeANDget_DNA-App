@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;

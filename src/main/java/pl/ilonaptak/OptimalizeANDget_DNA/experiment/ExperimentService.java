@@ -8,7 +8,6 @@ import pl.ilonaptak.OptimalizeANDget_DNA.ingredient.Ingredient;
 import pl.ilonaptak.OptimalizeANDget_DNA.ingredient.IngredientService;
 import pl.ilonaptak.OptimalizeANDget_DNA.reaction.Reaction;
 import pl.ilonaptak.OptimalizeANDget_DNA.reaction.ReactionService;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
 
 import java.util.List;

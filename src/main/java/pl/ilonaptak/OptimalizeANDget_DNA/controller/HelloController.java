@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.CurrentUser;
-import pl.ilonaptak.OptimalizeANDget_DNA.user.User;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;

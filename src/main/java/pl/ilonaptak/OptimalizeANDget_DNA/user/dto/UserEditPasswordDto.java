@@ -1,4 +1,4 @@
-package pl.ilonaptak.OptimalizeANDget_DNA.user;
+package pl.ilonaptak.OptimalizeANDget_DNA.user.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
