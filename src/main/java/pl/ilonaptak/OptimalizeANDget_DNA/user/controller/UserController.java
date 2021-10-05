@@ -64,6 +64,8 @@ public class UserController {
                 model.addAttribute("userExperiments", experimentService.findAllByUserId(id));
                 model.addAttribute("user", userService.findUserDtoById(id));
                 model.addAttribute("id", id);
+                model.addAttribute("articles", userService.getAllArticleByUserId(id));
+                model.addAttribute("achievements", userService.getAllAchievementByUserId(id));
                 if (user.getRole().equals("ROLE_ADMIN")) {
                     model.addAttribute("admin", user.getRole());
                 }

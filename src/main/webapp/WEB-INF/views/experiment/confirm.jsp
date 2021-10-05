@@ -23,7 +23,7 @@
 
 
         <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="/user/account/${userId}">
+           href="/user/profile/${userId}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>

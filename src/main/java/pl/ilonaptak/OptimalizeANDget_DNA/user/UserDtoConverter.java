@@ -12,6 +12,7 @@ public class UserDtoConverter {
         out.setEmail(in.getEmail());
         out.setPosition(in.getPosition());
         out.setWorkplace(in.getWorkplace());
+        out.setAbout(in.getAbout());
         return out;
     }
 
@@ -22,6 +23,7 @@ public class UserDtoConverter {
         out.setPosition(in.getPosition());
         out.setWorkplace(in.getWorkplace());
         out.setRole(in.getRole());
+        out.setAbout(in.getAbout());
         return out;
     }
 
