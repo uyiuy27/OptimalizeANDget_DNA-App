@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,14 +31,38 @@ public class User {
     String email;
 
     @NotEmpty
-    @Size(min=6)
+    @Size(min = 6)
     String password;
 
-    @Size(max=120)
+    /**
+     * Miejsce pracy/nauki
+     */
+    @Size(max = 120)
     String workplace;
 
-    @Size(max=50)
+    /**
+     * Stanowsiko pracy
+     */
+    @Size(max = 50)
     String position;
+
+    /**
+     * Informacje dodatkowe o użytkowniku
+     */
+    @Size(max = 600)
+    String about;
+
+    /**
+     * zwa pliku ze zdjęciem, z czasem trzeba ogarnąć żeby było zdjęcie
+     */
+    String photoName;
+
+    @OneToMany
+    List<Article> articles;
+
+    @OneToMany
+    List<Achievement> achievements;
+
 
     LocalDate firstLoginOn;
     String role;
