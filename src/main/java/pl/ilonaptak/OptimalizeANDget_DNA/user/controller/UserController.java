@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.ilonaptak.OptimalizeANDget_DNA.experiment.Experiment;
 import pl.ilonaptak.OptimalizeANDget_DNA.experiment.ExperimentService;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.*;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditDto;
@@ -14,6 +15,9 @@ import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditPasswordDto;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -61,7 +65,14 @@ public class UserController {
     public String showUserProfile(@PathVariable int id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         if (userService.existsById(id)) {
+            List<Experiment> experiments = experimentService.findAllByUserId(id);
+            if (user.getId() != id) {
+                model.addAttribute("userExperiments", experiments.stream()
+                        .filter(e -> e.getVisibility().equals("public"))
+                        .collect(Collectors.toList()));
+            } else {
                 model.addAttribute("userExperiments", experimentService.findAllByUserId(id));
+            }
                 model.addAttribute("userCurrent", user);
                 model.addAttribute("user", userService.findUserDtoById(id));
                 model.addAttribute("id", id);

@@ -47,6 +47,11 @@
             </a>
         </li>
         <li class="nav-item active">
+            <a class="nav-link" href="/user/account/${userCurrent.id}">
+                <span><spring:message code="user.account"/></span>
+            </a>
+        </li>
+        <li class="nav-item active">
             <a class="nav-link" href="/user/update/${id}">
                 <span><spring:message code="user.edit.data"/></span>
             </a>

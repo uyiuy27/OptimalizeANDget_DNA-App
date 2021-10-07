@@ -181,6 +181,7 @@ public class ExperimentController {
                     model.addAttribute("admin", user.getRole());
                 }
                 model.addAttribute("userId", user.getId());
+                model.addAttribute("userCurrent", user);
                 return "experiment/details";
             }
         }
