@@ -62,6 +62,7 @@ public class UserController {
         User user = currentUser.getUser();
         if (userService.existsById(id)) {
                 model.addAttribute("userExperiments", experimentService.findAllByUserId(id));
+                model.addAttribute("userCurrent", user);
                 model.addAttribute("user", userService.findUserDtoById(id));
                 model.addAttribute("id", id);
                 model.addAttribute("articles", userService.getAllArticleByUserId(id));
