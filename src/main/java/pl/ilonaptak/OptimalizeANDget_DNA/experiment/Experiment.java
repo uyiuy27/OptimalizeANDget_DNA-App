@@ -51,13 +51,15 @@ public class Experiment {
 
     String addedBy;
 
+    int addedById;
+
     @PrePersist
     public void prePersist() {
         createdOn = LocalDateTime.now();
     }
 
     public Experiment clone() {
-        return new Experiment(null, user, name, description, createdOn, plannedDuration, difficulty, visibility, author, resource, addedBy);
+        return new Experiment(null, user, name, description, createdOn, plannedDuration, difficulty, visibility, author, resource, addedBy, addedById);
     }
 
 

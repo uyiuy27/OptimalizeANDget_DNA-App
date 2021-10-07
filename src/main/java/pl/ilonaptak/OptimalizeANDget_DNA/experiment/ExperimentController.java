@@ -158,6 +158,9 @@ public class ExperimentController {
         if (experimentService.existsById(id)) {
             User userExperiment = experimentService.findById(id).getUser();
             if (experimentService.findById(id).getVisibility().equals("public") || user.getId() == userExperiment.getId()) {
+                if (userService.existsById(experimentService.findById(id).getAddedById())) {
+                    model.addAttribute("userLink", userExperiment.getId());
+                }
                 model.addAttribute("experiment", experimentService.findById(id));
                 model.addAttribute("accessories", accessoryService.findAllByExperimentId(id));
                 model.addAttribute("accessory", new Accessory());

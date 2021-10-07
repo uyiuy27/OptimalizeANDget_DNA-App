@@ -233,7 +233,14 @@
                                         code="experiment.added"/></h6>
                             </div>
                             <div class="card-body">
-                                ${experiment.addedBy}
+                                <c:choose>
+                                    <c:when test="${!empty userLink}">
+                                        <a href="/user/profile/${experiment.addedById}">${experiment.addedBy}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${experiment.addedBy}
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
 
