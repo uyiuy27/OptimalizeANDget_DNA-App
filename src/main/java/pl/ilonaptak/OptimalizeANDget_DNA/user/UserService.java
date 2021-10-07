@@ -5,6 +5,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditDto;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.dto.UserEditPasswordDto;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.Achievement;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.Article;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 
 import java.util.ArrayList;
@@ -93,6 +95,16 @@ public class UserService {
 
     public boolean existsByRole(String role) {
         return userRepository.existsByRole(role);
+    }
+
+    public List<Achievement> getAllAchievementByUserId(Integer id) {
+        User user = findById(id);
+        return user.getAchievements();
+    }
+
+    public List<Article> getAllArticleByUserId(Integer id) {
+        User user = findById(id);
+        return user.getArticles();
     }
 
 }

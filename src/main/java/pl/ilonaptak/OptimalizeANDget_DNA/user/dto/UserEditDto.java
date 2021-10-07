@@ -31,4 +31,6 @@ public class UserEditDto {
     String role;
 
     LocalDate firstLoginOn;
+
+    String about;
 }

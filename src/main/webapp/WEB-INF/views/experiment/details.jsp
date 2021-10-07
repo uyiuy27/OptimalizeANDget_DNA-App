@@ -26,12 +26,12 @@
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="/user/account/${user.id}">
+           href="/user/profile/${userCurrent.id}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">
-                <spring:message code="home.hello"/> ${user.username}!
+                <spring:message code="home.hello"/> ${userCurrent.username}!
             </div>
         </a>
 
@@ -233,7 +233,14 @@
                                         code="experiment.added"/></h6>
                             </div>
                             <div class="card-body">
-                                ${experiment.addedBy}
+                                <c:choose>
+                                    <c:when test="${!empty userLink}">
+                                        <a href="/user/profile/${experiment.addedById}">${experiment.addedBy}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${experiment.addedBy}
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
 

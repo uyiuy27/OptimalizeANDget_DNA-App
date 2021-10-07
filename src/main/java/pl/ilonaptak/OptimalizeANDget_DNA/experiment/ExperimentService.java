@@ -46,6 +46,7 @@ public class ExperimentService {
     void save(Experiment experiment) {
 //        experiment.setDone(false);
         experiment.setAddedBy(experiment.getUser().getUsername());
+        experiment.setAddedById(experiment.getUser().getId());
         experimentRepository.save(experiment);
     }
 

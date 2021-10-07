@@ -23,12 +23,12 @@
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="/user/account/${user.id}">
+           href="/user/profile/${userCurrent.id}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">
-                <spring:message code="home.hello"/> ${user.username}!
+                <spring:message code="home.hello"/> ${userCurrent.username}!
             </div>
         </a>
 
@@ -44,6 +44,11 @@
         <li class="nav-item active">
             <a class="nav-link" href="http://localhost:8080/">
                 <span><spring:message code="home.home"/></span>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/user/account/${userCurrent.id}">
+                <span><spring:message code="user.account"/></span>
             </a>
         </li>
         <li class="nav-item active">
@@ -138,12 +143,39 @@
             </div>
             <div class="container-fluid">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <div><p>TU KRÓTKIE INFO O SOBIE</p></div>
+                    <div> <h1 class="h3 mb-0 text-gray-800">O mnie</h1>
+                        <c:choose>
+                            <c:when test="${!empty user}">
+                                <p> ${user.about}</p>
+                            </c:when>
+                        </c:choose>
+                    </div>
                 </div>
-            </div><div class="container-fluid">
+            </div>
+            <div class="container-fluid">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <div><p>TU LISTA OSIĄGNIĘĆ ITD</p></div>
-                    <div><p>Artykuły do pobrania</p></div>
+                    <div> <h1 class="h3 mb-0 text-gray-800">Moje osiągnięcia</h1>
+                        <c:choose>
+                            <c:when test="${!empty achievements}">
+                                <ul>
+                                    <c:forEach items="${achievements}" var="achievement">
+                                        <li>${achievement.achievement}</li>
+                                    </c:forEach>
+                                </ul>
+                            </c:when>
+                        </c:choose>
+                    </div>
+                    <div><h1 class="h3 mb-0 text-gray-800">Moje artykuły</h1>
+                        <c:choose>
+                            <c:when test="${!empty articles}">
+                                <ul>
+                                    <c:forEach items="${articles}" var="article">
+                                        <li>${article.articleName} POBIERZ</li>
+                                    </c:forEach>
+                                </ul>
+                            </c:when>
+                        </c:choose>
+                    </div>
                 </div>
             </div>
             <div class="container-fluid">
@@ -183,14 +215,14 @@
                                                     <td>${experiment.difficulty}</td>
                                                     <td>${experiment.plannedDuration}</td>
                                                     <td>
-                                                       <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                                                   href="/experiment/details/${experiment.id}"><spring:message
+                                                        <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                                           href="/experiment/details/${experiment.id}"><spring:message
                                                                 code="experiment.details"/></a>
                                                         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                                                   href="/experiment/update/${experiment.id}"><spring:message
+                                                           href="/experiment/update/${experiment.id}"><spring:message
                                                                 code="experiment.edit"/></a>
                                                         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                                                   href="/experiment/confirm/${experiment.id}"><spring:message
+                                                           href="/experiment/confirm/${experiment.id}"><spring:message
                                                                 code="experiment.delete"/></a>
                                                     </td>
                                                 </tr>
@@ -200,9 +232,9 @@
                                     </div>
                                 </div>
                             </c:when>
-<%--                            <c:otherwise>--%>
-<%--                                <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="/experiment/add"><spring:message code="experiment.add"/></a>--%>
-<%--                            </c:otherwise>--%>
+                            <%--                            <c:otherwise>--%>
+                            <%--                                <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="/experiment/add"><spring:message code="experiment.add"/></a>--%>
+                            <%--                            </c:otherwise>--%>
                         </c:choose>
                     </div>
                 </div>

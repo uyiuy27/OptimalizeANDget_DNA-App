@@ -2,6 +2,8 @@ package pl.ilonaptak.OptimalizeANDget_DNA.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.Achievement;
+import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.Article;
 import pl.ilonaptak.OptimalizeANDget_DNA.user.entity.User;
 
 import javax.transaction.Transactional;
@@ -18,7 +20,5 @@ interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAllByEmail(String email);
 
     boolean existsByRole(String role);
-
-
 
 }

@@ -25,7 +25,7 @@
 
 
         <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="/user/account/${user.id}">
+           href="/user/profile/${user.id}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
